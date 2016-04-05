@@ -18,14 +18,37 @@
         var mapDiv = document.getElementById('map');
         var map = new google.maps.Map(mapDiv, {
             center: {lat: 46.2847067, lng: 7.5082212},
-            zoom: 18,
-            tilt: 45
+            zoom: 16,
+            tilt: 100
 
         })
         map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
 
 
+        var triangleCoords = [
+            {lat: 46.293, lng: 7.533},
+            {lat: 46.1, lng: 7.07277777778},
+            {lat: 46.5333333333, lng: 6.76666666667}
+        ];
+
+        // Construct the polygon.
+        var bermudaTriangle = new google.maps.Polygon({
+            paths: triangleCoords,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+        });
+        bermudaTriangle.setMap(map);
+
+
     }
+
+
+
+
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
         async defer></script>
