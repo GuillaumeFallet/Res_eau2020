@@ -5,8 +5,7 @@
 */
 
     var map;
-    var marker_captage_1;
-    var img_captage;
+
 
     // method to initialize the map
     function initMap()
@@ -56,7 +55,7 @@
             info_lake_tseuzier.open(map,marker_lake_tseuzier)
         }) ;
 
-        img_captage = {
+        var img_captage = {
             url: "images/captage.png",
 
             origin: new google.maps.Point(0,0),
@@ -64,12 +63,14 @@
             scaledSize: new google.maps.Size(40, 40)
         } ;
 
-        marker_captage_1 = new google.maps.Marker({
+        var marker_captage_1 = new google.maps.Marker({
             position: new google.maps.LatLng(46.203421, 7.302434),
             map: map,
             icon: img_captage,
             title: 'captage1'
         });
+
+        //
 
 
     }
