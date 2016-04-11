@@ -53,8 +53,8 @@
             title: 'Niveau du lac de Tseuzier'
         });
 
-        var lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)"
-        var info_lake_tseuzier = new google.maps.InfoWindow({
+         lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)"
+         info_lake_tseuzier = new google.maps.InfoWindow({
             content: lake_tseuzier_level,
             size: new google.maps.Size(100,100)
         }) ;
@@ -110,34 +110,16 @@
 
     function  readCSV() {
 
-      level_lake = new Array() ;
-
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
             if (regex.test($("#fileUpload").val().toLowerCase())) {
                 if (typeof (FileReader) != "undefined") {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var table = $("<table />");
                         var rows = e.target.result.split("\n");
-                        for (var i = 0; i < rows.length; i++) {
-                            var row = $("<tr />");
-                            var cells = rows[i].split(";");
-                            for (var j = 0; j < cells.length; j++) {
-                                var cell = $("<td />");
-
-                                if (i == 39 && j == 4 )
-                                {
-                                    alert(j+" :  "+cells[j]) ;
-                                    level_lake.push(cells[j])  ;
-
-                                }
-                                cell.html(cells[j]);
-                                row.append(cell);
-                            }
-                            table.append(row);
-                        }
-                        $("#dvCSV").html('');
-                        $("#dvCSV").append(table);
+                        array_level_lake = rows[39].split(";") ;
+                        array_water_needs = rows[33].split(";") ;
+                        array_afflux_lake = rows[2].split(";") ;
+                        array_afflux_captages = rows[3].split(";") ;
                     }
                     reader.readAsText($("#fileUpload")[0].files[0]);
                 } else {
@@ -146,17 +128,9 @@
             } else {
                 alert("Please upload a valid CSV file.");
             }
-
     }
 
-    function nextMonth()
-    {
-         month ++ ;
-        if (month==4)
-            month = 0 ;
 
-        changeLakeLevel(month) ;
-    }
 
     function changeLakeLevel(lvl) {
 
@@ -177,10 +151,14 @@
     }
 
 
-    function initVariables() {
+ function setMonth(num)
+ {
+
+    info_lake_tseuzier.setContent("Niveau actuel du lac : "+array_level_lake[num+2]+" millions de mètres cubes d'eau")
 
 
-    }
+
+ }
 
 
 
