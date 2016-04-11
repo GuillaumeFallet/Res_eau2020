@@ -1,0 +1,52 @@
+Graph;Projet Lienne-Raspille;PÇriode de temps;Jan;FÇv;Mars;Avril;Mai;Juin;Juillet;Aoñt;Sept;Oct;Nov;DÇc;Annuel;Remarques;Prognose;Quellen
+;;;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;Mio.m3;;;
+1;Afflux Lac Tseuzier;Moyenne 2100;2,167;1,235;1,733;5,858;17,279;11,678;8,187;6,377;5,047;4,466;3,859;2,961;70,847;;Winter +5%, Sommer -10% und -2,5 mio.;Kauzlaric, 2015
+2;Afflux captages est;Moyenne 2100;1,684;0,754;1,699;3,874;5,337;3,469;3,092;2,406;1,742;1,488;1,716;1,644;28,905;;Winter +5%, Sommer -10% und -2,5 mio.;Kauzlaric, 2015
+;;;;;;;;;;;;;;;;;;
+3;Liäne-ruisse depuis Barrage (minimum);;0,383;0,383;0,383;0,383;0,383;0,383;0,383;0,383;0,383;0,383;0,383;0,383;4,591;Toute l'annÇe;;
+4;Tiäche-ruisseaux est (minimum);;0,765;0,765;0,765;0,765;0,765;0,765;0,765;0,765;0,765;0,765;0,765;0,765;9,182;Toute l'annÇe;;
+;;;;;;;;;;;;;;;;;;
+;BESOIN;;;;;;;;;;;;;;;;;
+;Eau potable inclus industrie;;;;;;;;;;;;;;;;;
+;Besoin mensuel;Moyenne 2100;0,969;0,886;0,96;0,907;0,927;0,993;1,05;1,049;0,998;0,93;0,973;1,035;11,678;;;
+;;;;;;;;;;;;;;;;;;
+;Eau potable inclus industrie couvert par Lac Tseuzier;;;;;;;;;;;;;;;;;
+;Besoin mensuel;Moyenne 2100;0,145;0,133;;;;;;0,157;0,15;;;0,078;0,663;;;
+;;;;;;;;;;;;;;;;;;
+;Irrigation;;;;;;;;;;;;;;;;;
+;Besoin mensuel;Moyenne 2010 - 2011;0;0;0;0,14;0,19;0,31;0,56;0,6;0,46;0,2;0;0;2,46;;;Bonriposi, 2013: Fig.4.30, Tab.4.23
+;Besoin mensuel;Moyenne 2050;0;0;0;0,186;0,252;0,411;0,742;0,795;0,61;0,265;0;0;3,26;;32,50%;NFP61 MontanAqua
+;Besoin mensuel;Moyenne 2100;0;0;0;0,278;0,378;0,616;1,113;1,193;0,914;0,398;0;0;4,889;;50,00%;
+;;;;;;;;;;;;;;;;;;
+;Irrigation couvert par Lac Tseuzier;;;;;;;;;;;;;;;;;
+;Monatlicher Bedarf;Mittel 2010 - 2012;;;;;;;;0,48;0,368;;;;0,848;;;
+;Monatlicher Bedarf;Mittel 2050;;;;;;;;0,636;0,488;;;;1,124;;;
+;Besoin mensuel;Moyenne 2100;;;;;;;;0,954;0,731;;;;1,685;L'eau est amenÇ par les bisses, ce transport manque dans le clip de Y. Rey;;
+;;;;;;;;;;;;;;;;;;
+;Enneigement couvert par Lac Moubra;;;;;;;;;;;;;;;;;
+;Monatlicher Bedarf;Mittel 2010 - 2012;;;;;;;;;;;0,15;0,15;0,3;;;
+;Besoin mensuel;Moyenne 2100;;;;;;;;;;;0,3;0,3;0,6;Eventuellement c'est mieux de montrer un tube indÇpendant pour l'enneigement (manque dans clip);;
+;;;;;;;;;;;;;;;;;;
+;Production Energie Barrage;;;;;;;;;;;;;;;;;
+;Besoin mensuel;Moyenne 2100;7,8;7,7;4;0,2;1,3;4,7;7,5;7,3;6;8,3;9,7;9;73,5;;;VorlÑufig = Mittel 2007 - 2011
+;;;;;;;;;;;;;;;;;;
+;TOTAL BESOIm DEPUIS LAC TSEUZIER;;;;;;;;;;;;;;;;;
+;Besoin mensuel;Moyenne 2100;8,328;8,216;4,383;0,583;1,683;5,083;7,883;8,794;7,264;8,683;10,383;9,76;81,039;;;
+;;;;;;;;;;;;;;;;;;
+;BILAN MENSUEL AFFLUX - BESOIN;;;;;;;;;;;;;;;;;
+;;Moyenne 2100;-4,477;-6,227;-0,951;9,149;20,933;10,064;3,396;-0,011;-0,475;-2,729;-4,808;-5,155;;;;
+;;;;;;;;;;;;;;;;;;
+;NIVEAU LAC, LE MAXIMUM EST 45 MIO. M3, RESERVE DE 5 MIO M3 POUR HAUTES EAUX;;;;;;;;;;;;;;;;;
+;;Mittel 2100;27,357;21,131;20,18;29,329;45;45;45;45;44,525;41,797;36,989;31,834;;;;
+;;;;;;;;;;;;;;;;;;
+;ANNAHMEN VERBRAUCH;Einwohner;Norm. Verb.;;Sommer (Juni-Sept);;Mittel;;;;;;;;;;;
+;Mittel 1980 - 2009;36 500;0,56;;0,6;;0,573;;;;;;;;;;;x 2 um Industrie zu berÅcksichtigen
+;Trocken 2003;36 500;0,56;;0,66;;0,593;;;;;;;;;;;x 2 um Industrie zu berÅcksichtigen
+;Mittel 2035 -2065;48 545;0,52;;0,56;;0,533;;;plus;33%;;;;;;2013_KtVS-Demografische Perspektiven;x 2 um Industrie zu berÅcksichtigen
+;Trocken 2035 - 2065;48 545;0,52;;0,62;;0,553;;;plus;33%;;;;;;;x 2 um Industrie zu berÅcksichtigen
+;Mittel 2065 - 2100;64 565;0,46;;0,5;;0,473;;;plus;33%;;;;;;;x 2 um Industrie zu berÅcksichtigen
+;Trocken 2065 - 2100;64 565;0,46;;0,56;;0,493;;;plus;33%;;;;;;;x 2 um Industrie zu berÅcksichtigen
+;;;;;;;;;;;;;;;;;;
+;Tourismus;;;;;;;;;;;;;;;;;
+;öbernachtungen 2010/2011 in 1'000;;320;365;260;105;45;165;330;320;195;65;30;230;2430;;Bonriposi, 2013;x 2 um Industrie zu berÅcksichtigen
+;NuitÇe du tourisme;;;;;;;;;;;;;;;;;
