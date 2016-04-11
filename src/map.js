@@ -4,7 +4,7 @@
 * Created by Pydd on 05.04.2016.
 */
 
-    month = 0 ;
+    month = 1 ;
 
 
     // method to initialize the map
@@ -151,11 +151,32 @@
     }
 
 
+function nextMonth() {
+
+    setMonth(month + 1);
+}
+function previousMonth() {
+    setMonth(month - 1);
+}
+
  function setMonth(num)
  {
+     month = num ;
 
-    info_lake_tseuzier.setContent("Niveau actuel du lac : "+array_level_lake[num+2]+" millions de mètres cubes d'eau")
+     if (month==13)
+         month = 1 ;
 
+     if (month==0)
+         month = 12 ;
+
+     info_lake_tseuzier.setContent("Niveau actuel du lac: "+array_level_lake[month+2]+" millions de mètres cubes d'eau") ;
+
+     for (var i = 1 ; i <= 12 ; i ++)
+     {
+         document.getElementById("month"+i).style.background='#637aad';
+     }
+
+     document.getElementById("month"+month).style.background='#000000';
 
 
  }
