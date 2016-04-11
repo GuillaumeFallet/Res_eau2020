@@ -10,13 +10,19 @@
         #map { height: 80%; }
     </style>
     <script type="text/javascript" src="map.js"></script>
-<body >
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<body>
 <div id="map"></div>
 <button onclick="centerTseuzier()">Réseau d'eau du lac de Tseuzier</button>
 <button onclick="nextMonth()">Mois suivant</button>
+<input type="file" id="fileUpload" />
+<input type="button" value="Upload" onclick="readCSV()" />
+<hr/>
+<div id="dvCSV"></div>
 </body>
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXKnbiD4TrEGPrpghfi3aX6CCaa4maf6E&callback=initMap">
 </script>
+
 </html>

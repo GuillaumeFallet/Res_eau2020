@@ -10,8 +10,6 @@
     // method to initialize the map
     function initMap()
     {
-
-
         map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -110,6 +108,47 @@
 
     }
 
+    function  readCSV() {
+
+      level_lake = new Array() ;
+
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+            if (regex.test($("#fileUpload").val().toLowerCase())) {
+                if (typeof (FileReader) != "undefined") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var table = $("<table />");
+                        var rows = e.target.result.split("\n");
+                        for (var i = 0; i < rows.length; i++) {
+                            var row = $("<tr />");
+                            var cells = rows[i].split(";");
+                            for (var j = 0; j < cells.length; j++) {
+                                var cell = $("<td />");
+
+                                if (i == 39 && j == 4 )
+                                {
+                                    alert(j+" :  "+cells[j]) ;
+                                    level_lake.push(cells[j])  ;
+
+                                }
+                                cell.html(cells[j]);
+                                row.append(cell);
+                            }
+                            table.append(row);
+                        }
+                        $("#dvCSV").html('');
+                        $("#dvCSV").append(table);
+                    }
+                    reader.readAsText($("#fileUpload")[0].files[0]);
+                } else {
+                    alert("This browser does not support HTML5.");
+                }
+            } else {
+                alert("Please upload a valid CSV file.");
+            }
+
+    }
+
     function nextMonth()
     {
          month ++ ;
@@ -119,26 +158,31 @@
         changeLakeLevel(month) ;
     }
 
-    function changeLakeLevel(lvl)
-        {
+    function changeLakeLevel(lvl) {
 
-            switch (lvl) {
-                case 0 :
-                    marker_lake_tseuzier.setIcon(img_lake_full) ;
-                    break;
-                case 1 :
-                    marker_lake_tseuzier.setIcon(img_lake_nearly_full);
-                    break;
-                case 2 :
-                    marker_lake_tseuzier.setIcon(img_lake_nearly_empty);
-                    break;
-                case 3 :
-                    marker_lake_tseuzier.setIcon(img_lake_empty);
-                    break;
-            }
-
-
+        switch (lvl) {
+            case 0 :
+                marker_lake_tseuzier.setIcon(img_lake_full);
+                break;
+            case 1 :
+                marker_lake_tseuzier.setIcon(img_lake_nearly_full);
+                break;
+            case 2 :
+                marker_lake_tseuzier.setIcon(img_lake_nearly_empty);
+                break;
+            case 3 :
+                marker_lake_tseuzier.setIcon(img_lake_empty);
+                break;
         }
+    }
+
+
+    function initVariables() {
+
+
+    }
+
+
 
 
 
