@@ -21,26 +21,39 @@
 
         });
         coord_lac =  {lat: 46.350560, lng: 7.430909} ;
+
         img_lake_full = {
-            url: "images/lake_full.png",
+            url: "images/tank_full.jpg",
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(20,25),
             scaledSize: new google.maps.Size(40, 40)
         } ;
         img_lake_nearly_full = {
-            url: "images/lake_nearlyfull.png",
+            url: "images/tank_nearly_full.jpg",
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(20,25),
+            scaledSize: new google.maps.Size(40, 40)
+        } ;
+        img_lake_half_full = {
+            url: "images/tank_half_full.jpg",
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(20,25),
+            scaledSize: new google.maps.Size(40, 40)
+        } ;
+        img_lake_half_empty = {
+            url: "images/tank_half_empty.jpg",
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(20,25),
             scaledSize: new google.maps.Size(40, 40)
         } ;
         img_lake_nearly_empty = {
-            url: "images/lake_nearlyempty.png",
+            url: "images/tank   _nearly_empty.jpg",
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(20,25),
             scaledSize: new google.maps.Size(40, 40)
         } ;
         img_lake_empty = {
-            url: "images/lake_empty.png",
+            url: "images/tank_empty.jpg",
             origin: new google.maps.Point(0,0),
             anchor: new google.maps.Point(20,25),
             scaledSize: new google.maps.Size(40, 40)
@@ -49,11 +62,12 @@
             marker_lake_tseuzier = new google.maps.Marker({
             position: coord_lac,
             map: map,
-            icon: img_lake_full,
+            icon: img_lake_empty,
             title: 'Niveau du lac de Tseuzier'
         });
 
-         lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)"
+         lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
+
          info_lake_tseuzier = new google.maps.InfoWindow({
             content: lake_tseuzier_level,
             size: new google.maps.Size(100,100)
@@ -178,7 +192,7 @@ function  readCSV() {
 
                 document.getElementById("divMois").style.display="inline" ;
 
-                setMonth(5) ; 
+                setMonth(5) ;
             }
             reader.readAsText($("#fileUpload")[0].files[0]);
         } else {
