@@ -98,36 +98,45 @@
         });
 
 
-        var flightPlanCoordinates = [
-            {lat: 46.346939, lng: 7.437154},
-            {lat: 46.344306, lng: 7.448237},
-            {lat: 46.335981, lng: 7.449675},
+        var main_alim_collect_pipes_coordinate = [
+
+            {lat: 46.330970, lng: 7.535205},
+            {lat: 46.331829, lng: 7.519117},
+            {lat: 46.328599, lng: 7.516741},
+            {lat: 46.328006, lng: 7.505073},
+            {lat: 46.315185, lng: 7.481122},
+            {lat: 46.315355, lng: 7.464685},
+            {lat: 46.336700, lng: 7.467807},
+            {lat: 46.337591, lng: 7.464953},
             {lat: 46.334147, lng: 7.459031},
-            {lat: 46.337591, lng: 7.464953}
+            {lat: 46.335981, lng: 7.449675},
+            {lat: 46.344306, lng: 7.448237},
+            {lat: 46.346939, lng: 7.437154}
         ];
 
         // Define the symbol, using one of the predefined paths ('CIRCLE')
         // supplied by the Google Maps JavaScript API.
         var lineSymbol = {
             path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-            scale: 6,
+            scale: 4,
             strokeColor: '#22427C'
         };
 
-        var line = new google.maps.Polyline({
-            path: flightPlanCoordinates,
+        var main_collect_pipes = new google.maps.Polyline({
+            path: main_alim_collect_pipes_coordinate,
             geodesic: true,
             icons: [{
                 icon: lineSymbol,
-                offset: '100%'
+                offset: '100%',
+                repeat: '100px'
             }],
             map: map,
             strokeColor: '#22427C',
             strokeOpacity: 1.0,
-            strokeWeight: 2
+            strokeWeight: 5
         });
 
-        animateCircle(line);
+        animateCircle(main_collect_pipes);
 
         // function pour animer la flèche
         function animateCircle(line) {
@@ -138,7 +147,7 @@
                 var icons = line.get('icons');
                 icons[0].offset = (count / 2) + '%';
                 line.set('icons', icons);
-            }, 20);
+            }, 40);
 
         }
 
