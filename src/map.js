@@ -8,57 +8,60 @@
 
 
     // method to initialize the map
-    function initMap()
-    {
+    function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 46.32, lng: 7.53},
-        mapTypeId: google.maps.MapTypeId.SATELLITE,
-        zoom: 13,
-        disableDefaultUI: true,
-        rotateControl: true,
-        minZoom: 12,
-        maxZoom: 15
+            center: {lat: 46.32, lng: 7.53},
+            mapTypeId: google.maps.MapTypeId.SATELLITE,
+            zoom: 13,
+            disableDefaultUI: true,
+            rotateControl: true,
+            minZoom: 12,
+            maxZoom: 15
 
-    });
-    coord_lac =  {lat: 46.350560, lng: 7.430909} ;
+        });
+        coord_lac = {lat: 46.350560, lng: 7.430909};
 
-    img_lake_full = {
-        url: "images/tank_full.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
-    img_lake_nearly_full = {
-        url: "images/tank_nearly_full.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
-    img_lake_half_full = {
-        url: "images/tank_half_full.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
-    img_lake_half_empty = {
-        url: "images/tank_half_empty.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
-    img_lake_nearly_empty = {
-        url: "images/tank_nearly_empty.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
-    img_lake_empty = {
-        url: "images/tank_empty.jpg",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
+        img_lake_full = {
+            url: "images/tank_full.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        img_lake_nearly_full = {
+            url: "images/tank_nearly_full.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        img_lake_half_full = {
+            url: "images/tank_half_full.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        img_lake_half_empty = {
+            url: "images/tank_half_empty.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        img_lake_nearly_empty = {
+            url: "images/tank_nearly_empty.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
+        img_lake_empty = {
+            url: "images/tank_empty.jpg",
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 25),
+            scaledSize: new google.maps.Size(40, 40)
+        };
 
+    }
+
+    function initObjects()
+    {
             marker_lake_tseuzier = new google.maps.Marker({
             position: coord_lac,
             map: map,
@@ -218,27 +221,25 @@
             strokeWeight: 10
         });
 
-        animateCircle(main_collect_pipes);
-        animateCircle(pipe_captage1_to_main_pipe);
-        animateCircle(pipe_captage2_to_main_pipe);
-        animateCircle(pipe_captage3_to_main_pipe);
-
-        // function pour animer la flèche
-        function animateCircle(line) {
-            var count = 0;
-            window.setInterval(function () {
-                count = (count + 1) % 200;
-
-                var icons = line.get('icons');
-                icons[0].offset = (count / 2) + '%';
-                line.set('icons', icons);
-            }, 40);
-
-        }
-
-
-
+        animateCircle(main_collect_pipes,400);
+        animateCircle(pipe_captage1_to_main_pipe,400);
+        animateCircle(pipe_captage2_to_main_pipe,400);
+        animateCircle(pipe_captage3_to_main_pipe,400);
     }
+
+
+// function pour animer la flèche
+function animateCircle(line,vit) {
+    var count = 0;
+    window.setInterval(function () {
+        count = (count + 1) % 200;
+
+        var icons = line.get('icons');
+        icons[0].offset = (count / 2) + '%';
+        line.set('icons', icons);
+    }, vit);
+
+}
 
 // method to center the map on the network of Tseuzier
 function centerTseuzier(){
@@ -263,7 +264,7 @@ function  readCSV() {
                 var array_afflux_lake = rows[2].split(";") ;
                 var array_afflux_captages = rows[3].split(";") ;
 
-
+                initObjects() ;
                 big_array = new Array(13) ;
 
                 for (var i = 1 ; i <= 12 ; i ++)
@@ -322,7 +323,56 @@ function  readCSV() {
 
                     big_array[i][4] = parseFloat(array_afflux_lake[i+2].replace(/,/g, '.')) ;
                     big_array[i][6] = parseFloat(array_afflux_captages[i+2].replace(/,/g, '.')) ;
-                    big_array[i][7] = parseFloat(array_water_needs[i+2].replace(/,/g, '.')) ;
+                    big_array[i][8] = parseFloat(array_water_needs[i+2].replace(/,/g, '.')) ;
+
+                }
+
+                min = big_array[1][6] ;
+                max = big_array[1][6] ;
+
+                for (var j = 1 ; j <=12 ; j ++)
+                {
+                    if(big_array[j][6] < min)
+                    {
+                        min = big_array[j][6]  ;
+                    }
+                    else if (big_array[j][6] > max)
+                    {
+                        max = big_array[j][6]  ;
+                    }
+                }
+                var diff = max - min ;
+                var tier = diff / 6 ;
+
+                var array_tiers_speed_captage = [6] ;
+                array_tiers_speed_captage[0] = eval(min)+eval(1*tier) ;
+                array_tiers_speed_captage[1] = eval(min)+eval(2*tier) ;
+                array_tiers_speed_captage[2] = eval(min)+eval(3*tier) ;
+                array_tiers_speed_captage[3] = eval(min)+eval(4*tier) ;
+                array_tiers_speed_captage[4] = eval(min)+eval(5*tier) ;
+                array_tiers_speed_captage[5] = eval(min)+eval(6*tier) ;
+
+
+                for (var i = 1 ; i <= 12 ; i++) {
+
+                    if (big_array[i][6] <= array_tiers_speed_captage[0]) {
+                        big_array[i][7] = 100;
+                    }
+                    else if (big_array[i][6] < array_tiers_speed_captage[1]) {
+                        big_array[i][7] = 85;
+                    }
+                    else if (big_array[i][6] < array_tiers_speed_captage[2]) {
+                        big_array[i][7] = 70;
+                    }
+                    else if (big_array[i][6] < array_tiers_speed_captage[3]) {
+                        big_array[i][7] = 55;
+                    }
+                    else if (big_array[i][6] < array_tiers_speed_captage[4]) {
+                        big_array[i][7] = 40;
+                    }
+                    else if (big_array[i][6] <= array_tiers_speed_captage[5]) {
+                        big_array[i][7] = 25;
+                    }
 
                 }
 
@@ -342,6 +392,7 @@ function  readCSV() {
 
                 document.getElementById("divMois").style.display="inline" ;
 
+                setMonth(5) ;
 
 
             }
@@ -400,6 +451,7 @@ function setMonth(num)
     info_lake_tseuzier.setContent(content) ;
 
     marker_lake_tseuzier.setIcon(big_array[month][3]) ;
+
 
     for (var i = 1 ; i <= 12 ; i ++)
     {
