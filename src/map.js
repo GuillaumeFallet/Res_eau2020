@@ -1,15 +1,16 @@
 
 
 /**
- * Created by Pydd on 05.04.2016.
- */
+* Created by Pydd on 05.04.2016.
+*/
 
-month = 0 ;
+    month = 0 ;
 
-// method to initialize the map
-function initMap()
-{
-    map = new google.maps.Map(document.getElementById('map'), {
+
+    // method to initialize the map
+    function initMap()
+    {
+        map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         zoom: 13,
@@ -25,172 +26,219 @@ function initMap()
         url: "images/tank_full.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
+        scaledSize: new google.maps.Size(40, 40)
     } ;
     img_lake_nearly_full = {
         url: "images/tank_nearly_full.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
+        scaledSize: new google.maps.Size(40, 40)
     } ;
     img_lake_half_full = {
         url: "images/tank_half_full.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
+        scaledSize: new google.maps.Size(40, 40)
     } ;
     img_lake_half_empty = {
         url: "images/tank_half_empty.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
+        scaledSize: new google.maps.Size(40, 40)
     } ;
     img_lake_nearly_empty = {
         url: "images/tank_nearly_empty.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
+        scaledSize: new google.maps.Size(40, 40)
     } ;
     img_lake_empty = {
         url: "images/tank_empty.jpg",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(60, 60)
-    } ;
-
-    marker_lake_tseuzier = new google.maps.Marker({
-        position: coord_lac,
-        map: map,
-        icon: img_lake_full,
-        title: 'Niveau du lac de Tseuzier'
-    });
-
-    lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)"
-    info_lake_tseuzier = new google.maps.InfoWindow({
-        content: lake_tseuzier_level,
-        size: new google.maps.Size(100,100)
-    }) ;
-
-    google.maps.event.addListener(marker_lake_tseuzier, 'click', function(){
-        info_lake_tseuzier.open(map,marker_lake_tseuzier)
-    }) ;
-
-
-    coord_capt1 =  {lat: 46.346562, lng: 7.474394} ;
-    coord_capt2 =  {lat: 46.342899, lng: 7.506874} ;
-    coord_capt3 =  {lat: 46.355108, lng: 7.533259} ;
-
-    img_captage = {
-        url: "images/captage.png",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40, 40)
     } ;
 
+            marker_lake_tseuzier = new google.maps.Marker({
+            position: coord_lac,
+            map: map,
+            icon: img_lake_full,
+            title: 'Niveau du lac de Tseuzier'
+        });
 
-    marker_capt1_tseuzier = new google.maps.Marker({
-        position: coord_capt1,
-        map: map,
-        icon: img_captage,
-        title: 'Captage 1'
-    });
+         lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)"
+         info_lake_tseuzier = new google.maps.InfoWindow({
+            content: lake_tseuzier_level,
+            size: new google.maps.Size(100,100)
+        }) ;
 
-    marker_capt2_tseuzier = new google.maps.Marker({
-        position: coord_capt2,
-        map: map,
-        icon: img_captage,
-        title: 'Captage 2'
-    });
-
-    marker_capt3_tseuzier = new google.maps.Marker({
-        position: coord_capt3,
-        map: map,
-        icon: img_captage,
-        title: 'Captage 3'
-    });
-
-    // coordinate of the main pipes
-    var main_alim_collect_pipes_coordinate = [
-
-        {lat: 46.330970, lng: 7.535205},
-        {lat: 46.331829, lng: 7.519117},
-        {lat: 46.328599, lng: 7.516741},
-        {lat: 46.328006, lng: 7.505073},
-        {lat: 46.315185, lng: 7.481122},
-        {lat: 46.315355, lng: 7.464685},
-        {lat: 46.336700, lng: 7.467807},
-        {lat: 46.337591, lng: 7.464953},
-        {lat: 46.334147, lng: 7.459031},
-        {lat: 46.335981, lng: 7.449675},
-        {lat: 46.344306, lng: 7.448237},
-        {lat: 46.346939, lng: 7.437154}
-    ];
-
-    // coordinate of the pipe from the first captage to the main pipe
-
-    var pipe_coordinate_captage1_to_main_pipe = [
-
-        {lat: 46.346562, lng: 7.474394},
-        {lat: 46.337302, lng: 7.466399},
-
-    ];
+        google.maps.event.addListener(marker_lake_tseuzier, 'click', function(){
+            info_lake_tseuzier.open(map,marker_lake_tseuzier)
+        }) ;
 
 
-    // Define the symbol, using one of the predefined paths ('CIRCLE')
-    // supplied by the Google Maps JavaScript API.
-    var lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
-        scale: 2,
-        strokeColor: '#318CE7'
-    };
+        coord_capt1 =  {lat: 46.346562, lng: 7.474394} ;
+        coord_capt2 =  {lat: 46.342899, lng: 7.506874} ;
+        coord_capt3 =  {lat: 46.355108, lng: 7.533259} ;
 
-    var main_collect_pipes = new google.maps.Polyline({
-        path: main_alim_collect_pipes_coordinate,
-        //geodesic: true,
-        icons: [{
-            icon: lineSymbol,
-            offset: '100%',
-            repeat: '3%'
-        }],
-        map: map,
-        strokeColor: '#22427C',
-        strokeOpacity: 1.0,
-        strokeWeight: 10
-    });
+        img_captage = {
+            url: "images/captage.png",
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(20,25),
+            scaledSize: new google.maps.Size(40, 40)
+        } ;
 
-    var pipe_captage1_to_main_pipe = new google.maps.Polyline({
-        path: pipe_coordinate_captage1_to_main_pipe,
-        geodesic: false,
-        icons: [{
-            icon: lineSymbol,
-            offset: '100%',
-            repeat: '20%'
-        }],
-        map: map,
-        strokeColor: '#22427C',
-        strokeOpacity: 1.0,
-        strokeWeight: 10
-    });
 
-    animateCircle(main_collect_pipes);
-    animateCircle(pipe_captage1_to_main_pipe);
+        marker_capt1_tseuzier = new google.maps.Marker({
+            position: coord_capt1,
+            map: map,
+            icon: img_captage,
+            title: 'Captage 1'
+        });
 
-    // function pour animer la flèche
-    function animateCircle(line) {
-        var count = 0;
-        window.setInterval(function () {
-            count = (count + 1) % 200;
+        marker_capt2_tseuzier = new google.maps.Marker({
+            position: coord_capt2,
+            map: map,
+            icon: img_captage,
+            title: 'Captage 2'
+        });
 
-            var icons = line.get('icons');
-            icons[0].offset = (count / 2) + '%';
-            line.set('icons', icons);
-        }, 40);
+        marker_capt3_tseuzier = new google.maps.Marker({
+            position: coord_capt3,
+            map: map,
+            icon: img_captage,
+            title: 'Captage 3'
+        });
+
+        // coordinate of the main pipes
+        var main_alim_collect_pipes_coordinate = [
+
+            {lat: 46.330970, lng: 7.535205},
+            {lat: 46.331829, lng: 7.519117},
+            {lat: 46.328599, lng: 7.516741},
+            {lat: 46.328006, lng: 7.505073},
+            {lat: 46.315185, lng: 7.481122},
+            {lat: 46.315355, lng: 7.464685},
+            {lat: 46.336700, lng: 7.467807},
+            {lat: 46.337591, lng: 7.464953},
+            {lat: 46.334147, lng: 7.459031},
+            {lat: 46.335981, lng: 7.449675},
+            {lat: 46.344306, lng: 7.448237},
+            {lat: 46.346939, lng: 7.437154}
+        ];
+
+        // coordinate of the pipe from the first captage to the main pipe
+
+        var pipe_coordinate_captage1_to_main_pipe = [
+
+            {lat: 46.346562, lng: 7.474394},
+            {lat: 46.337302, lng: 7.466399}
+
+        ];
+
+        var pipe_coordinate_captage2_to_main_pipe = [
+
+            {lat: 46.342899, lng: 7.506874},
+            {lat: 46.327983, lng: 7.505161}
+
+
+        ];
+
+        var pipe_coordinate_captage3_to_main_pipe = [
+
+            {lat: 46.355108, lng: 7.533259},
+            {lat: 46.330984, lng: 7.535206}
+
+
+        ];
+
+
+        // Define the symbol, using one of the predefined paths ('CIRCLE')
+        // supplied by the Google Maps JavaScript API.
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+            scale: 2,
+            strokeColor: '#318CE7'
+        };
+
+
+        pipe_captage1_to_main_pipe = new google.maps.Polyline({
+            path: pipe_coordinate_captage1_to_main_pipe,
+            geodesic: false,
+            icons: [{
+                icon: lineSymbol,
+                offset: '100%',
+                repeat: '20%'
+            }],
+            map: map,
+            strokeColor: '#22427C',
+            strokeOpacity: 1.0,
+            strokeWeight: 10
+        });
+
+        pipe_captage2_to_main_pipe = new google.maps.Polyline({
+            path: pipe_coordinate_captage2_to_main_pipe,
+            geodesic: false,
+            icons: [{
+                icon: lineSymbol,
+                offset: '100%',
+                repeat: '20%'
+            }],
+            map: map,
+            strokeColor: '#22427C',
+            strokeOpacity: 1.0,
+            strokeWeight: 10
+        });
+
+        pipe_captage3_to_main_pipe = new google.maps.Polyline({
+            path: pipe_coordinate_captage3_to_main_pipe,
+            geodesic: false,
+            icons: [{
+                icon: lineSymbol,
+                offset: '100%',
+                repeat: '20%'
+            }],
+            map: map,
+            strokeColor: '#22427C',
+            strokeOpacity: 1.0,
+            strokeWeight: 10
+        });
+
+        main_collect_pipes = new google.maps.Polyline({
+            path: main_alim_collect_pipes_coordinate,
+            //geodesic: true,
+            icons: [{
+                icon: lineSymbol,
+                offset: '100%',
+                repeat: '3%'
+            }],
+            map: map,
+            strokeColor: '#22427C',
+            strokeOpacity: 1.0,
+            strokeWeight: 10
+        });
+
+        animateCircle(main_collect_pipes);
+        animateCircle(pipe_captage1_to_main_pipe);
+        animateCircle(pipe_captage2_to_main_pipe);
+        animateCircle(pipe_captage3_to_main_pipe);
+
+        // function pour animer la flèche
+        function animateCircle(line) {
+            var count = 0;
+            window.setInterval(function () {
+                count = (count + 1) % 200;
+
+                var icons = line.get('icons');
+                icons[0].offset = (count / 2) + '%';
+                line.set('icons', icons);
+            }, 40);
+
+        }
+
+
 
     }
-
-
-
-}
 
 // method to center the map on the network of Tseuzier
 function centerTseuzier(){
