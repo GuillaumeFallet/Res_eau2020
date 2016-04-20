@@ -221,10 +221,10 @@
             strokeWeight: 10
         });
 
-        animateCircle(main_collect_pipes,400);
-        animateCircle(pipe_captage1_to_main_pipe,400);
-        animateCircle(pipe_captage2_to_main_pipe,400);
-        animateCircle(pipe_captage3_to_main_pipe,400);
+        animateCircle(main_collect_pipes,100);
+        animateCircle(pipe_captage1_to_main_pipe,100);
+        animateCircle(pipe_captage2_to_main_pipe,100);
+        animateCircle(pipe_captage3_to_main_pipe,100    );
     }
 
 
