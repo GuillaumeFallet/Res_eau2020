@@ -68,7 +68,7 @@ function initMap() {
     img_turbine = {
         url: "images/turbine.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
+        anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
 
@@ -226,10 +226,23 @@ function initObjects()
 
     ];
 
+    var electricity_production_pipe_coordinate = [
+
+        {lat: 46.345526, lng: 7.433533},
+        {lat: 46.259256, lng: 7.444067}
+
+    ];
+
 
     // Define the symbol, using one of the predefined paths ('CIRCLE')
     // supplied by the Google Maps JavaScript API.
     var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+        scale: 2,
+        strokeColor: '#318CE7'
+    };
+
+    var electricity_symbol = {
         path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
         scale: 2,
         strokeColor: '#318CE7'
@@ -362,6 +375,20 @@ function initObjects()
         strokeWeight: 10
     });
 
+    electricity_production_pipe = new google.maps.Polyline({
+        path: electricity_production_pipe_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: electricity_symbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.needs_electricity_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 10
+    });
+
     animateCircle(main_collect_pipes,100);
     animateCircle(pipe_captage1_to_main_pipe,100);
     animateCircle(pipe_captage2_to_main_pipe,100);
@@ -371,6 +398,7 @@ function initObjects()
     animateCircle(secondary_natural_alimentation_2,100);
     animateCircle(secondary_natural_alimentation_3,100);
     animateCircle(secondary_natural_alimentation_4,100);
+    animateCircle(electricity_production_pipe,100);
 }
 
 
