@@ -82,7 +82,7 @@ function initObjects()
         title: 'Le glacier'
     });
 
-
+//
     lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
     info_lake_tseuzier = new google.maps.InfoWindow({
         content: lake_tseuzier_level,
