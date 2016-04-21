@@ -185,6 +185,47 @@ function initObjects()
 
     ];
 
+    //main natural lake alimentation
+
+    var main_natural_alimentation_coordinate = [
+
+        {lat: 46.373775, lng: 7.432827},
+        {lat: 46.369748, lng: 7.426218},
+        {lat: 46.361176, lng: 7.420494},
+        {lat: 46.356689, lng: 7.421803},
+        {lat: 46.356371, lng: 7.424378}
+
+
+    ];
+
+    var secondary_natural_alimentation_coordinate_1 = [
+
+        {lat: 46.377403, lng: 7.431376},
+        {lat: 46.373775, lng: 7.432827}
+
+    ];
+
+    var secondary_natural_alimentation_coordinate_2 = [
+
+        {lat: 46.374901, lng: 7.437835},
+        {lat: 46.373775, lng: 7.432827}
+
+    ];
+
+    var secondary_natural_alimentation_coordinate_3 = [
+
+        {lat: 46.373509, lng: 7.419174},
+        {lat: 46.369748, lng: 7.426218}
+
+    ];
+
+    var secondary_natural_alimentation_coordinate_4 = [
+
+        {lat: 46.357647, lng: 7.410473},
+        {lat: 46.356689, lng: 7.421803}
+
+    ];
+
 
     // Define the symbol, using one of the predefined paths ('CIRCLE')
     // supplied by the Google Maps JavaScript API.
@@ -201,7 +242,7 @@ function initObjects()
         icons: [{
             icon: lineSymbol,
             offset: '100%',
-            repeat: '20%'
+            repeat: '20px'
         }],
         map: map,
         strokeColor: colors_array.pipe_arrival_color,
@@ -215,7 +256,7 @@ function initObjects()
         icons: [{
             icon: lineSymbol,
             offset: '100%',
-            repeat: '20%'
+            repeat: '20px'
         }],
         map: map,
         strokeColor: colors_array.pipe_arrival_color,
@@ -229,7 +270,7 @@ function initObjects()
         icons: [{
             icon: lineSymbol,
             offset: '100%',
-            repeat: '20%'
+            repeat: '20px'
         }],
         map: map,
         strokeColor: colors_array.pipe_arrival_color,
@@ -243,10 +284,80 @@ function initObjects()
         icons: [{
             icon: lineSymbol,
             offset: '100%',
-            repeat: '3%'
+            repeat: '20px'
         }],
         map: map,
         strokeColor: colors_array.pipe_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 10
+    });
+
+    secondary_natural_alimentation_1 = new google.maps.Polyline({
+        path: secondary_natural_alimentation_coordinate_1,
+        geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor: colors_array.natural_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    secondary_natural_alimentation_2 = new google.maps.Polyline({
+        path: secondary_natural_alimentation_coordinate_2,
+        geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor: colors_array.natural_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    secondary_natural_alimentation_3 = new google.maps.Polyline({
+        path: secondary_natural_alimentation_coordinate_3,
+        geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.natural_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    secondary_natural_alimentation_4 = new google.maps.Polyline({
+        path: secondary_natural_alimentation_coordinate_4,
+        geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.natural_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    main_natural_alimentation = new google.maps.Polyline({
+        path: main_natural_alimentation_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.natural_arrival_color,
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
@@ -255,6 +366,11 @@ function initObjects()
     animateCircle(pipe_captage1_to_main_pipe,100);
     animateCircle(pipe_captage2_to_main_pipe,100);
     animateCircle(pipe_captage3_to_main_pipe,100);
+    animateCircle(main_natural_alimentation,100);
+    animateCircle(secondary_natural_alimentation_1,100);
+    animateCircle(secondary_natural_alimentation_2,100);
+    animateCircle(secondary_natural_alimentation_3,100);
+    animateCircle(secondary_natural_alimentation_4,100);
 }
 
 
