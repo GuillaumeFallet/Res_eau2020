@@ -51,7 +51,7 @@ function initMap() {
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
-    };
+    }; //
     img_lake_empty = {
         url: "images/tank_empty.jpg",
         origin: new google.maps.Point(0,0),
