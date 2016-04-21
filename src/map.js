@@ -20,6 +20,7 @@ function initMap() {
     });
     coord_lac = {lat: 46.350560, lng: 7.430909};
     coord_glacier = {lat: 46.383099, lng:7.509273} ;
+    coord_turbine = {lat:46.259256, lng: 7.444067} ;
 
     img_lake_full = {
         url: "images/tank_full.jpg",
@@ -61,8 +62,16 @@ function initMap() {
         url: "images/glacier.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(80,80)
+        scaledSize: new google.maps.Size(160,80)
     };
+
+    img_turbine = {
+        url: "images/turbine.png",
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(20,25),
+        scaledSize: new google.maps.Size(60,60)
+    };
+
 
 }
 
@@ -101,7 +110,7 @@ function initObjects()
     img_captage = {
         url: "images/captage.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
+        anchor: new google.maps.Point(20,50),
         scaledSize: new google.maps.Size(40, 40)
     } ;
 
@@ -126,6 +135,13 @@ function initObjects()
         icon: img_captage,
         title: 'Captage 3'
     });
+
+    marker_turbine = new google.maps.Marker({
+        position: coord_turbine,
+        map: map,
+        icon: img_turbine,
+        title: 'Centrale électrique'
+    }) ;
 
     // coordinate of the main pipes
     var main_alim_collect_pipes_coordinate = [
