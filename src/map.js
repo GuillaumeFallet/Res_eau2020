@@ -401,24 +401,10 @@ function initObjects()
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
-    animateCircle(pipe_captage1_to_main_pipe,100);
-    animateCircle(pipe_captage2_to_main_pipe,100);
-    animateCircle(pipe_captage3_to_main_pipe,100);
-    animateCircle(main_natural_alimentation,100);
-    animateCircle(secondary_natural_alimentation_1,100);
-    animateCircle(secondary_natural_alimentation_2,100);
-    animateCircle(secondary_natural_alimentation_3,100);
-    animateCircle(secondary_natural_alimentation_4,100);
-    animateCircle(electricity_production_pipe,100);
 
-    var count = 0;
 
-    main_pipe_interval =  window.setInterval(function () {
-        count = (count + 1) % 200;
-        var icons = main_collect_pipes.get('icons');
-        icons[0].offset = (count / 2) + '%';
-        main_collect_pipes.set('icons', icons);
-    }, 40);
+
+
 
 }
 
@@ -617,6 +603,92 @@ function  readCSV() {
         alert("Please upload a valid CSV file.");
     }
 
+}
+
+
+
+var main_pipe_interval ;
+var elec_pipe_interval ;
+var secondary_natural_pipe_interval ;
+var captage_pipe_interval ;
+var main_natural_pipe_interval ;
+// var irrig_pipe_interval ;
+
+function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit) {
+
+
+    // control the speed of the main pipe
+    var main_pipe_interval_count = 0;
+    if(typeof main_pipe_interval !=='undefined')
+        window.clearInterval(main_pipe_interval) ;
+    main_pipe_interval =  window.setInterval(function () {
+        main_pipe_interval_count = (main_pipe_interval_count + 1) % 200;
+        var icons = main_collect_pipes.get('icons');
+        icons[0].offset = (main_pipe_interval_count / 2) + '%';
+        main_collect_pipes.set('icons', icons);
+    }, main_vit);
+
+
+    // control the speed of the captage pipes
+    var capt_pipe_interval_count = 0;
+    if(typeof captage_pipe_interval !=='undefined')
+        window.clearInterval(captage_pipe_interval) ;
+    captage_pipe_interval =  window.setInterval(function () {
+        capt_pipe_interval_count = (capt_pipe_interval_count + 1) % 200;
+        var icons = pipe_captage1_to_main_pipe.get('icons');
+        icons[0].offset = (capt_pipe_interval_count / 2) + '%';
+        pipe_captage1_to_main_pipe.set('icons', icons);
+        pipe_captage2_to_main_pipe.set('icons', icons);
+        pipe_captage3_to_main_pipe.set('icons', icons);
+    }, capt_vit);
+
+    // control the speed of the electricity pipe
+    var elec_pipe_interval_count = 0 ;
+    if(typeof elec_pipe_interval !=='undefined')
+        window.clearInterval(elec_pipe_interval) ;
+    elec_pipe_interval =  window.setInterval(function () {
+        elec_pipe_interval_count = (elec_pipe_interval_count + 1) % 200;
+        var icons = electricity_production_pipe.get('icons');
+        icons[0].offset = (elec_pipe_interval_count / 2) + '%';
+        electricity_production_pipe.set('icons', icons);
+    }, elec_vit);
+
+    // control the speed of the irrigation pipe
+   /* var irrig_pipe_interval_count = 0 ;
+    if(typeof irrig_pipe_interval !=='undefined')
+        window.clearInterval(irrig_pipe_interval) ;
+    irrig_pipe_interval =  window.setInterval(function () {
+        irrig_pipe_interval_count = (irrig_pipe_interval_count + 1) % 200;
+        var icons = irrig_pipe.get('icons');
+        icons[0].offset = (irrig_pipe_interval_count / 2) + '%';
+        irrig_pipe.set('icons', icons);
+    }, irrig_vit); */
+
+    // control the speed of the main natural arrival pipe
+    var natural_pipe_interval_count = 0 ;
+    if(typeof main_natural_pipe_interval !=='undefined')
+        window.clearInterval(main_natural_pipe_interval) ;
+    main_natural_pipe_interval =  window.setInterval(function () {
+        natural_pipe_interval_count = (natural_pipe_interval_count + 1) % 200;
+        var icons = main_natural_alimentation.get('icons');
+        icons[0].offset = (natural_pipe_interval_count / 2) + '%';
+        main_natural_alimentation.set('icons', icons);
+    }, main_natural_vit);
+
+
+    // control the speed of the secondary natural arrival pipe
+    var secondary_natural_pipe_interval_count = 0 ;
+    if(typeof secondary_natural_pipe_interval !=='undefined')
+        window.clearInterval(secondary_natural_pipe_interval) ;
+    secondary_natural_pipe_interval =  window.setInterval(function () {
+        secondary_natural_pipe_interval_count = (secondary_natural_pipe_interval_count + 1) % 200;
+        var icons = secondary_natural_alimentation_1.get('icons');
+        icons[0].offset = (secondary_natural_pipe_interval_count / 2) + '%';
+        secondary_natural_alimentation_1.set('icons', icons);
+        secondary_natural_alimentation_2.set('icons', icons);
+        secondary_natural_alimentation_3.set('icons', icons);
+        secondary_natural_alimentation_4.set('icons', icons);
+    },secondary_natural_vit);
 
 }
 
@@ -646,7 +718,7 @@ function setMonth(num)
     content = "Besoin en eau pour la production électrique : "+big_array[month].needs_electricity+" millions de mètres cubes d'eau" ;
     info_turbine.setContent(content) ;
 
-
+    animatePipes(month*5,month*5,month*5,month*5,month*5,month*5) ;
 
     for (var i = 1 ; i <= 12 ; i ++)
     {
