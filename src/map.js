@@ -495,7 +495,7 @@ function initObjects()
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
-    
+
 }
 // method to center the map on the network of Tseuzier
 function centerTseuzier()
@@ -606,7 +606,7 @@ function  readCSV()
                 calculateSpeeds("needs_irrigation") ;
                 calculateSpeeds("needs_electricity") ;
 
-               
+
 
 
                 big_array[1].month_name = "Janvier" ;
@@ -645,7 +645,7 @@ var elec_pipe_interval ;
 var secondary_natural_pipe_interval ;
 var captage_pipe_interval ;
 var main_natural_pipe_interval ;
-// var irrig_pipe_interval ;
+var irrig_pipe_interval ;
 
 function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit)
 {
@@ -688,15 +688,17 @@ function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,seco
     }, elec_vit);
 
     // control the speed of the irrigation pipe
-    /* var irrig_pipe_interval_count = 0 ;
-     if(typeof irrig_pipe_interval !=='undefined')
-     window.clearInterval(irrig_pipe_interval) ;
-     irrig_pipe_interval =  window.setInterval(function () {
-     irrig_pipe_interval_count = (irrig_pipe_interval_count + 1) % 200;
-     var icons = irrig_pipe.get('icons');
-     icons[0].offset = (irrig_pipe_interval_count / 2) + '%';
-     irrig_pipe.set('icons', icons);
-     }, irrig_vit); */
+    var irrig_pipe_interval_count = 0 ;
+    if(typeof irrig_pipe_interval !=='undefined')
+        window.clearInterval(irrig_pipe_interval) ;
+    irrig_pipe_interval =  window.setInterval(function () {
+        irrig_pipe_interval_count = (irrig_pipe_interval_count + 1) % 200;
+        var icons = irrig_pipe.get('icons');
+        icons[0].offset = (irrig_pipe_interval_count / 2) + '%';
+        irrig_pipe.set('icons', icons);
+        secondary_irrig_pipe1.set('icons', icons);
+        secondary_irrig_pipe2.set('icons', icons);
+    }, irrig_vit);
 
     // control the speed of the main natural arrival pipe
     var natural_pipe_interval_count = 0 ;
@@ -802,7 +804,7 @@ function calculateSpeeds(field)
 
 
     for (var i = 1 ; i <= 12 ; i++) {
-$
+        $
         if (big_array[i][field] == 0) {
             big_array[i][speed] = 500;
         }
