@@ -7,7 +7,8 @@
 var month = 0 ;
 
 // method to initialize the map
-function initMap() {
+function initMap()
+{
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -23,37 +24,37 @@ function initMap() {
     coord_turbine = {lat:46.259256, lng: 7.444067} ;
 
     img_lake_full = {
-        url: "images/tank_full.jpg",
+        url: "images/tank_full.png",
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(20, 25),
         scaledSize: new google.maps.Size(40, 40)
     };
     img_lake_nearly_full = {
-        url: "images/tank_nearly_full.jpg",
+        url: "images/tank_nearly_full.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
     };
     img_lake_half_full = {
-        url: "images/tank_half_full.jpg",
+        url: "images/tank_half_full.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
     };
     img_lake_half_empty = {
-        url: "images/tank_half_empty.jpg",
+        url: "images/tank_half_empty.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
     };
     img_lake_nearly_empty = {
-        url: "images/tank_nearly_empty.jpg",
+        url: "images/tank_nearly_empty.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
     }; //
     img_lake_empty = {
-        url: "images/tank_empty.jpg",
+        url: "images/tank_empty.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(40,40)
@@ -76,6 +77,7 @@ function initMap() {
 }
 
 function initObjects()
+
 {
     marker_lake_tseuzier = new google.maps.Marker({
         position: coord_lac,
@@ -92,9 +94,9 @@ function initObjects()
     });
 
 //
-    lake_tseuzier_level = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
+    info_lake_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
     info_lake_tseuzier = new google.maps.InfoWindow({
-        content: lake_tseuzier_level,
+        content: info_lake_text,
         size: new google.maps.Size(100,100)
     }) ;
 
@@ -142,6 +144,17 @@ function initObjects()
         icon: img_turbine,
         title: 'Centrale électrique'
     }) ;
+
+    info_turbine_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
+    info_turbine = new google.maps.InfoWindow({
+        content: info_turbine_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+
+    google.maps.event.addListener(marker_turbine, 'click', function(){
+        info_turbine.open(map,marker_turbine)
+    }) ;
+
 
     // coordinate of the main pipes
     var main_alim_collect_pipes_coordinate = [
@@ -399,15 +412,19 @@ function initObjects()
     animateCircle(secondary_natural_alimentation_3,100);
     animateCircle(secondary_natural_alimentation_4,100);
     animateCircle(electricity_production_pipe,100);
-}
 
+    main_collect_pipes.setMap(null) ;
+    main_collect_pipes.setMap(map) ;
+
+    window.clearInterval()
+
+}
 
 // function pour animer la flèche
 function animateCircle(line,vit) {
     var count = 0;
     window.setInterval(function () {
         count = (count + 1) % 200;
-
         var icons = line.get('icons');
         icons[0].offset = (count / 2) + '%';
         line.set('icons', icons);
@@ -601,31 +618,11 @@ function  readCSV() {
 
 }
 
-
-
-function changeLakeLevel(lvl) {
-
-    switch (lvl) {
-        case 0 :
-            marker_lake_tseuzier.setIcon(img_lake_full);
-            break;
-        case 1 :
-            marker_lake_tseuzier.setIcon(img_lake_nearly_full);
-            break;
-        case 2 :
-            marker_lake_tseuzier.setIcon(img_lake_nearly_empty);
-            break;
-        case 3 :
-            marker_lake_tseuzier.setIcon(img_lake_empty);
-            break;
-    }
-}
-
-
 function nextMonth() {
 
     setMonth(month + 1);
 }
+
 function previousMonth() {
     setMonth(month - 1);
 }
@@ -641,10 +638,12 @@ function setMonth(num)
         month = 12 ;
 
     var content = "Niveau actuel du lac: "+big_array[month].lake_level+" millions de mètres cubes d'eau" ;
-
     info_lake_tseuzier.setContent(content) ;
-
     marker_lake_tseuzier.setIcon(big_array[month].lake_level_img) ;
+
+    content = "Besoin en eau pour la production électrique : "+big_array[month].needs_electricity+" millions de mètres cubes d'eau" ;
+    info_turbine.setContent(content) ;
+
 
 
     for (var i = 1 ; i <= 12 ; i ++)
