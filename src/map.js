@@ -73,8 +73,18 @@ function initMap()
         scaledSize: new google.maps.Size(60,60)
     };
 
+    img_irrigation = {
+        url: "images/",
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(32,32),
+        scaledSize: new google.maps.Size(60,60)
+    };
+
+
 }
+
 function initObjects()
+
 {
     marker_lake_tseuzier = new google.maps.Marker({
         position: coord_lac,
@@ -243,6 +253,28 @@ function initObjects()
 
     ];
 
+    var main_irrigation_pipe_coordinate = [
+
+        {lat: 46.346419, lng: 7.435284},
+        {lat: 46.308953, lng: 7.455366},
+        {lat: 46.319417, lng: 7.514439}
+
+    ];
+
+    var secondary_irrig_pipe1_coordinate = [
+
+        {lat: 46.308953, lng: 7.455366},
+        {lat: 46.302873, lng: 7.450955}
+
+    ];
+
+    var secondary_irrig_pipe2_coordinate = [
+
+        {lat: 46.319417, lng: 7.514439},
+        {lat: 46.315647, lng: 7.515431}
+
+    ];
+
 
     // Define the symbol, using one of the predefined paths ('CIRCLE')
     // supplied by the Google Maps JavaScript API.
@@ -255,7 +287,13 @@ function initObjects()
     var electricity_symbol = {
         path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
         scale: 2,
-        strokeColor: '#318CE7'
+        strokeColor: '#EFD807'
+    };
+
+    var irrigation_symbol = {
+        path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+        scale: 2,
+        strokeColor: '#096A09'
     };
 
 
@@ -398,6 +436,49 @@ function initObjects()
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
+
+    secondary_irrig_pipe1 = new google.maps.Polyline({
+        path: secondary_irrig_pipe1_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: irrigation_symbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.needs_irrigation_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    secondary_irrig_pipe2 = new google.maps.Polyline({
+        path: secondary_irrig_pipe2_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: irrigation_symbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.needs_irrigation_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 6
+    });
+
+    irrig_pipe = new google.maps.Polyline({
+        path: main_irrigation_pipe_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: irrigation_symbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor:  colors_array.needs_irrigation_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 10
+    });
+    
 }
 // method to center the map on the network of Tseuzier
 function centerTseuzier()
@@ -508,6 +589,7 @@ function  readCSV()
                 calculateSpeeds("needs_irrigation") ;
                 calculateSpeeds("needs_electricity") ;
 
+               
 
 
                 big_array[1].month_name = "Janvier" ;
