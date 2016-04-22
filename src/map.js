@@ -401,8 +401,6 @@ function initObjects()
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
-
-    animateCircle(main_collect_pipes,100);
     animateCircle(pipe_captage1_to_main_pipe,100);
     animateCircle(pipe_captage2_to_main_pipe,100);
     animateCircle(pipe_captage3_to_main_pipe,100);
@@ -413,16 +411,20 @@ function initObjects()
     animateCircle(secondary_natural_alimentation_4,100);
     animateCircle(electricity_production_pipe,100);
 
-    main_collect_pipes.setMap(null) ;
-    main_collect_pipes.setMap(map) ;
+    var count = 0;
 
-    window.clearInterval()
+    main_pipe_interval =  window.setInterval(function () {
+        count = (count + 1) % 200;
+        var icons = main_collect_pipes.get('icons');
+        icons[0].offset = (count / 2) + '%';
+        main_collect_pipes.set('icons', icons);
+    }, 40);
 
 }
 
 // function pour animer la flèche
 function animateCircle(line,vit) {
-    var count = 0;
+    var count = 0 ;
     window.setInterval(function () {
         count = (count + 1) % 200;
         var icons = line.get('icons');
