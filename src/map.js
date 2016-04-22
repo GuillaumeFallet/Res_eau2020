@@ -502,54 +502,13 @@ function  readCSV()
 
                 }
 
-                min = big_array[1][6] ;
-                max = big_array[1][6] ;
-
-                for (var j = 1 ; j <=12 ; j ++)
-                {
-                    if(big_array[j][6] < min)
-                    {
-                        min = big_array[j][6]  ;
-                    }
-                    else if (big_array[j][6] > max)
-                    {
-                        max = big_array[j][6]  ;
-                    }
-                }
-                var diff = max - min ;
-                var tier = diff / 6 ;
-
-                var array_tiers_speed_captage = [6] ;
-                array_tiers_speed_captage[0] = eval(min)+eval(1*tier) ;
-                array_tiers_speed_captage[1] = eval(min)+eval(2*tier) ;
-                array_tiers_speed_captage[2] = eval(min)+eval(3*tier) ;
-                array_tiers_speed_captage[3] = eval(min)+eval(4*tier) ;
-                array_tiers_speed_captage[4] = eval(min)+eval(5*tier) ;
-                array_tiers_speed_captage[5] = eval(min)+eval(6*tier) ;
+                calculateSpeeds("natural_arrival") ;
+                calculateSpeeds("pipe_arrival") ;
+                calculateSpeeds("needs_water") ;
+                calculateSpeeds("needs_irrigation") ;
+                calculateSpeeds("needs_electricity") ;
 
 
-                for (var i = 1 ; i <= 12 ; i++) {
-
-                    if (big_array[i][6] <= array_tiers_speed_captage[0]) {
-                        big_array[i][7] = 100;
-                    }
-                    else if (big_array[i][6] < array_tiers_speed_captage[1]) {
-                        big_array[i][7] = 85;
-                    }
-                    else if (big_array[i][6] < array_tiers_speed_captage[2]) {
-                        big_array[i][7] = 70;
-                    }
-                    else if (big_array[i][6] < array_tiers_speed_captage[3]) {
-                        big_array[i][7] = 55;
-                    }
-                    else if (big_array[i][6] < array_tiers_speed_captage[4]) {
-                        big_array[i][7] = 40;
-                    }
-                    else if (big_array[i][6] <= array_tiers_speed_captage[5]) {
-                        big_array[i][7] = 25;
-                    }
-
-                }
 
                 big_array[1].month_name = "Janvier" ;
                 big_array[2].month_name = "Février" ;
@@ -630,15 +589,15 @@ function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,seco
     }, elec_vit);
 
     // control the speed of the irrigation pipe
-   /* var irrig_pipe_interval_count = 0 ;
-    if(typeof irrig_pipe_interval !=='undefined')
-        window.clearInterval(irrig_pipe_interval) ;
-    irrig_pipe_interval =  window.setInterval(function () {
-        irrig_pipe_interval_count = (irrig_pipe_interval_count + 1) % 200;
-        var icons = irrig_pipe.get('icons');
-        icons[0].offset = (irrig_pipe_interval_count / 2) + '%';
-        irrig_pipe.set('icons', icons);
-    }, irrig_vit); */
+    /* var irrig_pipe_interval_count = 0 ;
+     if(typeof irrig_pipe_interval !=='undefined')
+     window.clearInterval(irrig_pipe_interval) ;
+     irrig_pipe_interval =  window.setInterval(function () {
+     irrig_pipe_interval_count = (irrig_pipe_interval_count + 1) % 200;
+     var icons = irrig_pipe.get('icons');
+     icons[0].offset = (irrig_pipe_interval_count / 2) + '%';
+     irrig_pipe.set('icons', icons);
+     }, irrig_vit); */
 
     // control the speed of the main natural arrival pipe
     var natural_pipe_interval_count = 0 ;
@@ -679,8 +638,8 @@ function previousMonth()
 function setMonth(num)
 {
     var name = "needs_water" ;
-    calculateSpeeds(name) ;
-   month = num ;
+
+    month = num ;
 
     if (month==13)
         month = 1 ;
@@ -694,8 +653,14 @@ function setMonth(num)
 
     content = "Besoin en eau pour la production électrique : "+big_array[month].needs_electricity+" millions de mètres cubes d'eau" ;
     info_turbine.setContent(content) ;
-
-    animatePipes(month*5,month*5,month*5,month*5,month*5,month*5) ;
+    animatePipes(
+        big_array[month].pipe_arrival_speed,
+        big_array[month].pipe_arrival_speed,
+        big_array[month].needs_electricity_speed,
+        big_array[month].needs_irrigation_speed,
+        big_array[month].natural_arrival_speed,
+        big_array[month].natural_arrival_speed
+    ) ;
 
     for (var i = 1 ; i <= 12 ; i ++)
     {
@@ -708,56 +673,60 @@ function setMonth(num)
 }
 function calculateSpeeds(field)
 {
-    var name = eval(field) ;
-    alert(big_array[1].name) ;
-    /*  var min = big_array[1].field ;
-  var max = big_array[1][6] ;
+
+    var speed = field+"_speed" ;
+
+    var min = big_array[1][field] ;
+    var max = big_array[1][field] ;
 
     for (var j = 1 ; j <=12 ; j ++)
     {
-        if(big_array[j][6] < min)
+        if(big_array[j][field] < min)
         {
-            min = big_array[j][6]  ;
+            min = big_array[j][field]  ;
         }
-        else if (big_array[j][6] > max)
+        else if (big_array[j][field] > max)
         {
-            max = big_array[j][6]  ;
+            max = big_array[j][field]  ;
         }
     }
     var diff = max - min ;
     var tier = diff / 6 ;
 
-    var array_tiers_speed_captage = [6] ;
-    array_tiers_speed_captage[0] = eval(min)+eval(1*tier) ;
-    array_tiers_speed_captage[1] = eval(min)+eval(2*tier) ;
-    array_tiers_speed_captage[2] = eval(min)+eval(3*tier) ;
-    array_tiers_speed_captage[3] = eval(min)+eval(4*tier) ;
-    array_tiers_speed_captage[4] = eval(min)+eval(5*tier) ;
-    array_tiers_speed_captage[5] = eval(min)+eval(6*tier) ;
+    var array_tiers = [6] ;
+    array_tiers[0] = eval(min)+eval(1*tier) ;
+    array_tiers[1] = eval(min)+eval(2*tier) ;
+    array_tiers[2] = eval(min)+eval(3*tier) ;
+    array_tiers[3] = eval(min)+eval(4*tier) ;
+    array_tiers[4] = eval(min)+eval(5*tier) ;
+    array_tiers[5] = eval(min)+eval(6*tier) ;
 
 
     for (var i = 1 ; i <= 12 ; i++) {
+$
+        if (big_array[i][field] == 0) {
+            big_array[i][speed] = 500;
+        }
+        else if (big_array[i][field] <= array_tiers[0]) {
+            big_array[i][speed] = 200;
+        }
+        else if (big_array[i][field] < array_tiers[1]) {
+            big_array[i][speed] = 150;
+        }
+        else if (big_array[i][field] < array_tiers[2]) {
+            big_array[i][speed] = 100;
+        }
+        else if (big_array[i][field] < array_tiers[3]) {
+            big_array[i][speed] = 60;
+        }
+        else if (big_array[i][field] < array_tiers[4]) {
+            big_array[i][speed] = 40;
+        }
+        else if (big_array[i][field] <= array_tiers[5]) {
+            big_array[i][speed] = 20;
+        }
 
-        if (big_array[i][6] <= array_tiers_speed_captage[0]) {
-            big_array[i][7] = 100;
-        }
-        else if (big_array[i][6] < array_tiers_speed_captage[1]) {
-            big_array[i][7] = 85;
-        }
-        else if (big_array[i][6] < array_tiers_speed_captage[2]) {
-            big_array[i][7] = 70;
-        }
-        else if (big_array[i][6] < array_tiers_speed_captage[3]) {
-            big_array[i][7] = 55;
-        }
-        else if (big_array[i][6] < array_tiers_speed_captage[4]) {
-            big_array[i][7] = 40;
-        }
-        else if (big_array[i][6] <= array_tiers_speed_captage[5]) {
-            big_array[i][7] = 25;
-        }
-
-    } */
+    }
 }
 
 
