@@ -74,7 +74,7 @@ function initMap()
     };
 
     img_irrigation = {
-        url: "images/",
+        url: "images/irrigation.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
@@ -115,6 +115,9 @@ function initObjects()
     coord_capt1 =  {lat: 46.346562, lng: 7.474394} ;
     coord_capt2 =  {lat: 46.342899, lng: 7.506874} ;
     coord_capt3 =  {lat: 46.355108, lng: 7.533259} ;
+
+    coord_irrig1 = {lat: 46.302873, lng: 7.450955};
+    coord_irrig2 = {lat: 46.315647, lng: 7.515431};
 
     img_captage = {
         url: "images/captage.png",
@@ -160,6 +163,20 @@ function initObjects()
 
     google.maps.event.addListener(marker_turbine, 'click', function(){
         info_turbine.open(map,marker_turbine)
+    }) ;
+
+    marker_irrig_1 = new google.maps.Marker({
+        position: coord_irrig1,
+        map: map,
+        icon: img_irrigation,
+        title: 'Irrigation'
+    }) ;
+
+    marker_irrig_2 = new google.maps.Marker({
+        position: coord_irrig2,
+        map: map,
+        icon: img_irrigation,
+        title: 'Irrigation'
     }) ;
 
 
