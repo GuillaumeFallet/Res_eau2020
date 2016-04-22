@@ -73,11 +73,8 @@ function initMap()
         scaledSize: new google.maps.Size(60,60)
     };
 
-
 }
-
 function initObjects()
-
 {
     marker_lake_tseuzier = new google.maps.Marker({
         position: coord_lac,
@@ -401,37 +398,17 @@ function initObjects()
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
-
-
-
-
-
 }
-
-// function pour animer la flèche
-function animateCircle(line,vit) {
-    var count = 0 ;
-    window.setInterval(function () {
-        count = (count + 1) % 200;
-        var icons = line.get('icons');
-        icons[0].offset = (count / 2) + '%';
-        line.set('icons', icons);
-    }, vit);
-
-}
-
 // method to center the map on the network of Tseuzier
-function centerTseuzier(){
+function centerTseuzier()
+{
 
     map.setCenter({lat: 46.32, lng: 7.53}) ;
     map.setZoom(13) ;
 
 }
-
-function  readCSV() {
-
-
-
+function  readCSV()
+{
     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
     if (regex.test($("#fileUpload").val().toLowerCase())) {
         if (typeof (FileReader) != "undefined") {
@@ -459,7 +436,7 @@ function  readCSV() {
                 for (var i = 1 ; i <= 12 ; i ++)
                 {
                     big_array[i] =  {index:null,month_name:null,lake_level:null,lake_level_img:null,
-                        natural_arrival:null,natural_arrival_speep:null,
+                        natural_arrival:null,natural_arrival_speed:null,
                         pipe_arrival:null, pipe_arrival_speed:null,
                         needs_water:null,needs_water_speed:null,
                         needs_irrigation:null,needs_irrigation_speed:null,
@@ -605,8 +582,6 @@ function  readCSV() {
 
 }
 
-
-
 var main_pipe_interval ;
 var elec_pipe_interval ;
 var secondary_natural_pipe_interval ;
@@ -614,7 +589,8 @@ var captage_pipe_interval ;
 var main_natural_pipe_interval ;
 // var irrig_pipe_interval ;
 
-function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit) {
+function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit)
+{
 
 
     // control the speed of the main pipe
@@ -691,18 +667,19 @@ function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,seco
     },secondary_natural_vit);
 
 }
-
-function nextMonth() {
+function nextMonth()
+{
 
     setMonth(month + 1);
 }
-
-function previousMonth() {
+function previousMonth()
+{
     setMonth(month - 1);
 }
-
 function setMonth(num)
 {
+    var name = "needs_water" ;
+    calculateSpeeds(name) ;
    month = num ;
 
     if (month==13)
@@ -727,9 +704,61 @@ function setMonth(num)
 
     document.getElementById("month"+month).style.background='#000000';
 
-
+//
 }
+function calculateSpeeds(field)
+{
+    var name = eval(field) ;
+    alert(big_array[1].name) ;
+    /*  var min = big_array[1].field ;
+  var max = big_array[1][6] ;
 
+    for (var j = 1 ; j <=12 ; j ++)
+    {
+        if(big_array[j][6] < min)
+        {
+            min = big_array[j][6]  ;
+        }
+        else if (big_array[j][6] > max)
+        {
+            max = big_array[j][6]  ;
+        }
+    }
+    var diff = max - min ;
+    var tier = diff / 6 ;
+
+    var array_tiers_speed_captage = [6] ;
+    array_tiers_speed_captage[0] = eval(min)+eval(1*tier) ;
+    array_tiers_speed_captage[1] = eval(min)+eval(2*tier) ;
+    array_tiers_speed_captage[2] = eval(min)+eval(3*tier) ;
+    array_tiers_speed_captage[3] = eval(min)+eval(4*tier) ;
+    array_tiers_speed_captage[4] = eval(min)+eval(5*tier) ;
+    array_tiers_speed_captage[5] = eval(min)+eval(6*tier) ;
+
+
+    for (var i = 1 ; i <= 12 ; i++) {
+
+        if (big_array[i][6] <= array_tiers_speed_captage[0]) {
+            big_array[i][7] = 100;
+        }
+        else if (big_array[i][6] < array_tiers_speed_captage[1]) {
+            big_array[i][7] = 85;
+        }
+        else if (big_array[i][6] < array_tiers_speed_captage[2]) {
+            big_array[i][7] = 70;
+        }
+        else if (big_array[i][6] < array_tiers_speed_captage[3]) {
+            big_array[i][7] = 55;
+        }
+        else if (big_array[i][6] < array_tiers_speed_captage[4]) {
+            big_array[i][7] = 40;
+        }
+        else if (big_array[i][6] <= array_tiers_speed_captage[5]) {
+            big_array[i][7] = 25;
+        }
+
+    } */
+}
 
 
 
