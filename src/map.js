@@ -157,6 +157,25 @@ function initObjects()
         title: 'Captage 3'
     });
 
+
+
+    info_capt_text = "Captage d'eau" ;
+    info_capt = new google.maps.InfoWindow({
+        content: info_capt_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+
+    google.maps.event.addListener(marker_capt1_tseuzier, 'click', function(){
+        info_capt.open(map,marker_capt1_tseuzier)
+    }) ;
+
+    google.maps.event.addListener(marker_capt2_tseuzier, 'click', function(){
+        info_capt.open(map,marker_capt2_tseuzier)
+    }) ;
+    google.maps.event.addListener(marker_capt3_tseuzier, 'click', function(){
+        info_capt.open(map,marker_capt3_tseuzier)
+    }) ;
+
     marker_turbine = new google.maps.Marker({
         position: coord_turbine,
         map: map,
@@ -164,7 +183,7 @@ function initObjects()
         title: 'Centrale électrique'
     }) ;
 
-    info_turbine_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
+    info_turbine_text = "Centrale électrique" ;
     info_turbine = new google.maps.InfoWindow({
         content: info_turbine_text,
         size: new google.maps.Size(100,100)
@@ -830,12 +849,17 @@ function setMonth(num)
     if (month==0)
         month = 12 ;
 
-    var content = "Niveau actuel du lac: "+big_array[month].lake_level+" millions de mètres cubes d'eau" ;
+    var content = "Niveau du lac le mois de "+big_array[month].month_name+" : "+big_array[month].lake_level+" millions de mètres cubes d'eau" ;
     info_lake_tseuzier.setContent(content) ;
     marker_lake_tseuzier.setIcon(big_array[month].lake_level_img) ;
 
-    content = "Besoin en eau pour la production électrique : "+big_array[month].needs_electricity+" millions de mètres cubes d'eau" ;
+    content = "Besoin en eau pour la production électrique le mois de "+big_array[month].month_name+" : "+big_array[month].needs_electricity+" millions de mètres cubes d'eau" ;
     info_turbine.setContent(content) ;
+
+    content = "Eau captée le mois de "+big_array[month].month_name+" : "+big_array[month].pipe_arrival+" millions de mètres cubes d'eau" ;
+    info_capt.setContent(content) ;
+
+
     animatePipes(
         big_array[month].pipe_arrival_speed,
         big_array[month].pipe_arrival_speed,
