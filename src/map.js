@@ -891,6 +891,23 @@ function setMonth(num)
         marker_distrib_1.setMap(null);
     }
 
+    if( big_array[month].needs_irrigation>0 )
+    {
+        irrig_pipe.setMap(map);
+        secondary_irrig_pipe1.setMap(map);
+        secondary_irrig_pipe2.setMap(map);
+        marker_irrig_1.setMap(map);
+        marker_irrig_2.setMap(map);
+    }
+    else {
+
+        irrig_pipe.setMap(null);
+        secondary_irrig_pipe1.setMap(null);
+        secondary_irrig_pipe2.setMap(null);
+        marker_irrig_1.setMap(null);
+        marker_irrig_2.setMap(null);
+    }
+
     for (var i = 1 ; i <= 12 ; i ++)
     {
         document.getElementById("month"+i).style.background='#637aad';
