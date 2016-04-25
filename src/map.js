@@ -80,6 +80,13 @@ function initMap()
         scaledSize: new google.maps.Size(60,60)
     };
 
+    img_distrib = {
+        url: "images/conso.png",
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(32,32),
+        scaledSize: new google.maps.Size(60,60)
+    };
+
 
 }
 
@@ -118,6 +125,8 @@ function initObjects()
 
     coord_irrig1 = {lat: 46.302873, lng: 7.450955};
     coord_irrig2 = {lat: 46.315647, lng: 7.515431};
+
+    coord_distrib1 = {lat: 46.315557, lng: 7.543587};
 
     img_captage = {
         url: "images/captage.png",
@@ -179,6 +188,13 @@ function initObjects()
         title: 'Irrigation'
     }) ;
 
+    marker_distrib_1 = new google.maps.Marker({
+        position: coord_distrib1,
+        map: map,
+        icon: img_distrib,
+        title: 'Distribuation'
+    }) ;
+
 
     // coordinate of the main pipes
     var main_alim_collect_pipes_coordinate = [
@@ -195,6 +211,24 @@ function initObjects()
         {lat: 46.335981, lng: 7.449675},
         {lat: 46.344306, lng: 7.448237},
         {lat: 46.346939, lng: 7.437154}
+    ];
+
+    // coordinate of the main pipes
+    var main_distrib_pipes_coordinate = [
+
+        {lat: 46.346939, lng: 7.437154},
+        {lat: 46.344306, lng: 7.448237},
+        {lat: 46.335981, lng: 7.449675},
+        {lat: 46.334147, lng: 7.459031},
+        {lat: 46.337591, lng: 7.464953},
+        {lat: 46.336700, lng: 7.467807},
+        {lat: 46.315355, lng: 7.464685},
+        {lat: 46.315185, lng: 7.481122},
+        {lat: 46.328006, lng: 7.505073},
+        {lat: 46.328599, lng: 7.516741},
+        {lat: 46.331829, lng: 7.519117},
+        {lat: 46.330970, lng: 7.535205}
+
     ];
 
     // coordinate of the pipe from the first captage to the main pipe
@@ -219,6 +253,13 @@ function initObjects()
         {lat: 46.355108, lng: 7.533259},
         {lat: 46.330984, lng: 7.535206}
 
+
+    ];
+
+    var secondary_ditstrib_coordinate = [
+
+        {lat: 46.330970, lng: 7.535205},
+        {lat: 46.315557, lng: 7.543587}
 
     ];
 
@@ -366,6 +407,34 @@ function initObjects()
         }],
         map: map,
         strokeColor: colors_array.pipe_arrival_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 10
+    });
+
+    main_distribb_pipes = new google.maps.Polyline({
+        path: main_distrib_pipes_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor: colors_array.needs_water_color,
+        strokeOpacity: 1.0,
+        strokeWeight: 10
+    });
+
+    secondary_distrib_pipe = new google.maps.Polyline({
+        path: secondary_ditstrib_coordinate,
+        //geodesic: true,
+        icons: [{
+            icon: lineSymbol,
+            offset: '100%',
+            repeat: '20px'
+        }],
+        map: map,
+        strokeColor: colors_array.needs_water_color,
         strokeOpacity: 1.0,
         strokeWeight: 10
     });
@@ -762,6 +831,27 @@ function setMonth(num)
         big_array[month].natural_arrival_speed,
         big_array[month].natural_arrival_speed
     ) ;
+
+    if( big_array[month].needs_water>0 )
+    {
+        main_collect_pipes.setMap(null);
+        pipe_captage1_to_main_pipe.setMap(null);
+        pipe_captage2_to_main_pipe.setMap(null);
+        pipe_captage3_to_main_pipe.setMap(null);
+        main_distribb_pipes.setMap(map);
+        secondary_distrib_pipe.setMap(map);
+        marker_distrib_1.setMap(map);
+    }
+    else {
+
+        main_collect_pipes.setMap(map);
+        pipe_captage1_to_main_pipe.setMap(map);
+        pipe_captage2_to_main_pipe.setMap(map);
+        pipe_captage3_to_main_pipe.setMap(map);
+        main_distribb_pipes.setMap(null);
+        secondary_distrib_pipe.setMap(null);
+        marker_distrib_1.setMap(null);
+    }
 
     for (var i = 1 ; i <= 12 ; i ++)
     {
