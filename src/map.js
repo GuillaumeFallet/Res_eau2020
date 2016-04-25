@@ -715,8 +715,9 @@ var secondary_natural_pipe_interval ;
 var captage_pipe_interval ;
 var main_natural_pipe_interval ;
 var irrig_pipe_interval ;
+var water_distr_pipe_interval ;
 
-function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit)
+function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,secondary_natural_vit,water_distr_vit)
 {
 
 
@@ -795,6 +796,18 @@ function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,seco
         secondary_natural_alimentation_4.set('icons', icons);
     },secondary_natural_vit);
 
+    // control the speed of the water distribution pipe
+    var water_distr_pipe = 0 ;
+    if(typeof water_distr_pipe_interval !=='undefined')
+        window.clearInterval(water_distr_pipe_interval) ;
+    water_distr_pipe_interval =  window.setInterval(function () {
+        water_distr_pipe = (water_distr_pipe + 1) % 200;
+        var icons = secondary_natural_alimentation_1.get('icons');
+        icons[0].offset = (water_distr_pipe / 2) + '%';
+        main_distribb_pipes.set('icons', icons);
+        secondary_distrib_pipe.set('icons', icons);
+    },water_distr_vit);
+
 }
 function nextMonth()
 {
@@ -829,7 +842,8 @@ function setMonth(num)
         big_array[month].needs_electricity_speed,
         big_array[month].needs_irrigation_speed,
         big_array[month].natural_arrival_speed,
-        big_array[month].natural_arrival_speed
+        big_array[month].natural_arrival_speed,
+        big_array[month].needs_water_speed
     ) ;
 
     if( big_array[month].needs_water>0 )
