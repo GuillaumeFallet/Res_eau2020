@@ -828,6 +828,26 @@ function animatePipes(main_vit,capt_vit,elec_vit,irrig_vit,main_natural_vit,seco
     },water_distr_vit);
 
 }
+var simulation_interval ;
+
+function startSimulation()
+{
+    simulation_interval =  window.setInterval(function () {
+     nextMonth() ;
+    },3000);
+
+    document.getElementById("stopButton").style.display="inline" ;
+    document.getElementById("launchButton").style.display="none" ;
+}
+
+function stopSimulation()
+{
+    if(typeof simulation_interval !=='undefined')
+        window.clearInterval(simulation_interval) ;
+
+    document.getElementById("stopButton").style.display="none" ;
+    document.getElementById("launchButton").style.display="inline" ;
+}
 function nextMonth()
 {
 
