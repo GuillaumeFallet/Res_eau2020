@@ -21,6 +21,7 @@ function initMap()
     });
 
 
+
     var coordStMaurice = {lat: 46.214382, lng: 7.004878} ;
     var coordBrigViegeNaters = {lat: 46.315558, lng: 7.985488} ;
     var coordVouvryPortValais = {lat: 46.338060, lng: 6.887102} ;
@@ -126,6 +127,7 @@ function initTseuzierMap()
     });
 
 
+
     document.getElementById("centerTseuzierButton").style.display="inline" ;
     document.getElementById("fileUpload").style.display="inline" ;
     document.getElementById("uploadfileButton").style.display="inline" ;
@@ -137,6 +139,9 @@ function initTseuzierMap()
 function initObjects()
 
 {
+
+    document.getElementById('title').innerHTML = title_text + ' ' + scenario_text ;
+
     var coord_lac = {lat: 46.350560, lng: 7.430909};
     var coord_glacier = {lat: 46.39, lng:7.5} ;
     var coord_turbine = {lat:46.259256, lng: 7.444067} ;
