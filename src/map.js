@@ -229,15 +229,9 @@ function initObjects()
         title: 'Niveau du lac de Tseuzier'
     });
 
-    marker_glacier = new google.maps.Marker({
-        position: coord_glacier,
-        map: map,
-        icon: img_glacier,
-        title: 'Le glacier'
-    });
 
 //
-    info_lake_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
+    var info_lake_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
     info_lake_tseuzier = new google.maps.InfoWindow({
         content: info_lake_text,
         size: new google.maps.Size(100,100)
@@ -248,8 +242,22 @@ function initObjects()
     }) ;
 
 
+    marker_glacier = new google.maps.Marker({
+        position: coord_glacier,
+        map: map,
+        icon: img_glacier,
+        title: 'Le glacier'
+    });
 
+    var info_glacier_text = "Taille du glacier cette année : "+glacier_size ;
+    var info_glacier = new google.maps.InfoWindow({
+        content: info_glacier_text,
+        size: new google.maps.Size(100,100)
+    }) ;
 
+    google.maps.event.addListener(marker_glacier, 'click', function(){
+        info_glacier.open(map,marker_glacier)
+    }) ;
 
 
     marker_capt1_tseuzier = new google.maps.Marker({
@@ -278,7 +286,7 @@ function initObjects()
 
 
 
-    info_capt_text = "Captage d'eau" ;
+    var info_capt_text = "Captage d'eau" ;
     info_capt = new google.maps.InfoWindow({
         content: info_capt_text,
         size: new google.maps.Size(100,100)
@@ -303,7 +311,7 @@ function initObjects()
         title: 'Centrale électrique'
     }) ;
 
-    info_turbine_text = "Centrale électrique" ;
+    var info_turbine_text = "Centrale électrique" ;
     info_turbine = new google.maps.InfoWindow({
         content: info_turbine_text,
         size: new google.maps.Size(100,100)
@@ -311,6 +319,26 @@ function initObjects()
 
     google.maps.event.addListener(marker_turbine, 'click', function(){
         info_turbine.open(map,marker_turbine)
+    }) ;
+
+
+    marker_distrib_1 = new google.maps.Marker({
+        position: coord_distrib1,
+        map: map,
+        optimized: false,
+        icon: img_distrib,
+        title: 'Distribuation'
+    }) ;
+
+
+    var info_distrib_text = "Besoin en eau potable" ;
+    info_distrib = new google.maps.InfoWindow({
+        content: info_distrib_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+
+    google.maps.event.addListener(marker_distrib_1, 'click', function(){
+        info_distrib.open(map,marker_distrib_1)
     }) ;
 
     marker_irrig_1 = new google.maps.Marker({
@@ -329,12 +357,17 @@ function initObjects()
         title: 'Irrigation'
     }) ;
 
-    marker_distrib_1 = new google.maps.Marker({
-        position: coord_distrib1,
-        map: map,
-        optimized: false,
-        icon: img_distrib,
-        title: 'Distribuation'
+    var info_irrig_text = "Irrigation d'eau" ;
+    info_irrig = new google.maps.InfoWindow({
+        content: info_irrig_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+
+    google.maps.event.addListener(marker_irrig_1, 'click', function(){
+        info_irrig.open(map,marker_irrig_1)
+    }) ;
+    google.maps.event.addListener(marker_irrig_2, 'click', function(    ){
+        info_irrig.open(map,marker_irrig_2)
     }) ;
 
 
@@ -731,7 +764,13 @@ function  readCSV()
                 var array_water_needs_irig = rows[23].split(";") ; // 10
                 var array_water_needs_elec = rows[30].split(";") ; // 12
 
+                var array_title_region_scenario  = rows[0].split(";") ;
 
+                title_text = array_title_region_scenario[0] ;
+                scenario_text = array_title_region_scenario[1] ;
+
+                var array_glacier = rows[41].split(";") ;
+                glacier_size = array_glacier[3] ;
 
                 big_array = new Array(13) ;
 
@@ -1001,6 +1040,12 @@ function setMonth(num)
 
     content = "Eau captée le mois de "+big_array[month].month_name+" : "+big_array[month].pipe_arrival+" millions de mètres cubes d'eau" ;
     info_capt.setContent(content) ;
+
+    content = "Eau utilisée pour l'irrigation le mois de "+big_array[month].month_name+" : "+big_array[month].needs_irrigation+" millions de mètres cubes d'eau" ;
+    info_irrig.setContent(content) ;
+
+    content = "Besoin en eau potable pour le mois de  "+big_array[month].month_name+" : "+big_array[month].needs_water+" millions de mètres cubes d'eau" ;
+    info_distrib.setContent(content) ;
 
 
     animatePipes(
