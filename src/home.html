@@ -15,11 +15,10 @@
 <body>
 <div id="map" style="align-self: center" ></div>
 <div align="center">
-    <a class="myButton2" onclick="centerTseuzier()">Réseau d'eau du lac de Tseuzier</a>
-
-
-    <input class="myButton3" type="file" id="fileUpload" />
-    <input class="myButton3" type="button" value="Upload" onclick="readCSV()" />
+    <a class="myButton2" id="backButton" style="display:none;" onclick="initMap()">Retour</a>
+    <a class="myButton2" id="centerTseuzierButton" style="display:none;" onclick="centerTseuzier()">Réseau d'eau du lac de Tseuzier</a>
+    <input class="myButton3" style="display:none;" type="file" id="fileUpload" />
+    <input class="myButton3" id="uploadfileButton" style="display:none;" type="button" value="Upload" onclick="readCSV()" />
     <br>
     <div id="divMois" style="display:none;">
         <a id="month1" onclick="setMonth(1)" class="myButton">Janvier</a>
@@ -35,12 +34,12 @@
         <a id="month11" onclick="setMonth(11)" class="myButton">Novembre</a>
         <a id="month12" onclick="setMonth(12)" class="myButton">Décembre</a>
         <br>
-        <a onclick="previousMonth()" class="myButton">Mois précédent</a>
-        <a onclick="nextMonth()" class="myButton">Mois suivant</a>
+        <a onclick="previousMonth()"  class="myButton">Mois précédent</a>
+        <a onclick="nextMonth()"  class="myButton">Mois suivant</a>
         <br>
-        <a onclick="startSimulation()" id="launchButton" class="myButton">On y va Simmone</a>
-        <a onclick="stopSimulation()" id="stopButton" style="display:none;" class="myButton">Arrête toi Simonne</a>
     </div>
+    <a onclick="startSimulation()" id="launchButton" style="display:none;" class="myButton">Démarrer la simulation</a>
+    <a onclick="stopSimulation()" id="stopButton" style="display:none;" class="myButton">Arrêter la simulation</a>
 </div>
 </body>
 <script async defer

@@ -9,90 +9,219 @@ var month = 0 ;
 // method to initialize the map
 function initMap()
 {
+    clearButtons() ;
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 46.32, lng: 7.53},
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        zoom: 10,
+        disableDefaultUI: true,
+        rotateControl: true,
+        minZoom: 10,
+        maxZoom: 10
+    });
+
+
+    var coordStMaurice = {lat: 46.214382, lng: 7.004878} ;
+    var coordBrigViegeNaters = {lat: 46.315558, lng: 7.985488} ;
+    var coordVouvryPortValais = {lat: 46.338060, lng: 6.887102} ;
+    var coordTseuzier = {lat: 46.351732, lng: 7.429361} ;
+
+
+    var marker_BrigViegeNaters = new google.maps.Marker({
+        position: coordBrigViegeNaters,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'Agglomération Brig-Viège-Naters'
+    });
+    var marker_StMaurice = new google.maps.Marker({
+        position: coordStMaurice,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'District de St-Maurice'
+    });
+    var marker_VouvryPortValais = new google.maps.Marker({
+        position: coordVouvryPortValais,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'Région Vouvry-Port-Valais-St-Gingolph'
+    });
+    var marker_Tseuzier = new google.maps.Marker({
+        position: coordTseuzier,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'Région Crans-Montana-Sierre'
+    });
+
+
+    var info_StMaurice_text = "Réseau d'eau du district de St-Maurice" ;
+    var info_StMaurice = new google.maps.InfoWindow({
+        content: info_StMaurice_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+    info_StMaurice.open(map,marker_StMaurice) ;
+
+    var info_BrigViegeNaters_text = "Réseau d'eau de l'agglomération Brig-Viège-Naters" ;
+    var info_BrigViegeNaters = new google.maps.InfoWindow({
+        content: info_BrigViegeNaters_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+    info_BrigViegeNaters.open(map,marker_BrigViegeNaters) ;
+
+    var info_VouvryPortValais_text = "Réseau d'eau de la région Vouvry-Port-Valais-St-Gingolph" ;
+    var info_VouvryPortValais = new google.maps.InfoWindow({
+        content: info_VouvryPortValais_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+    info_VouvryPortValais.open(map,marker_VouvryPortValais) ;
+
+    var info_Tseuzier_text = "Réseau d'eau de la région Crans-Montana-Sierre" ;
+    var info_Tseuzier = new google.maps.InfoWindow({
+        content: info_Tseuzier_text,
+        size: new google.maps.Size(100,100)
+    }) ;
+    info_Tseuzier.open(map,marker_Tseuzier)
+
+
+    google.maps.event.addListener(marker_Tseuzier, 'click', function(){
+        clearMarkers();
+        initTseuzierMap() ;
+    }) ;
+
+
+    function clearMarkers()
+    {
+        marker_BrigViegeNaters.setMap(null) ;
+        marker_StMaurice.setMap(null) ;
+        marker_VouvryPortValais.setMap(null) ;
+        marker_Tseuzier.setMap(null) ;
+    }
+
+    function clearButtons()
+    {
+        stopSimulation() ;
+        document.getElementById("centerTseuzierButton").style.display="none" ;
+        document.getElementById("fileUpload").style.display="none" ;
+        document.getElementById("uploadfileButton").style.display="none" ;
+        document.getElementById("backButton").style.display="none" ;
+        document.getElementById("divMois").style.display="none" ;
+        document.getElementById("launchButton").style.display="none" ;
+        document.getElementById("stopButton").style.display="none" ;
+
+    }
+}
+
+
+
+function initTseuzierMap()
+{
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         zoom: 13,
         disableDefaultUI: true,
-        rotateControl: true,
         minZoom: 12,
         maxZoom: 15
 
     });
-    coord_lac = {lat: 46.350560, lng: 7.430909};
-    coord_glacier = {lat: 46.383099, lng:7.509273} ;
-    coord_turbine = {lat:46.259256, lng: 7.444067} ;
+
+
+    document.getElementById("centerTseuzierButton").style.display="inline" ;
+    document.getElementById("fileUpload").style.display="inline" ;
+    document.getElementById("uploadfileButton").style.display="inline" ;
+    document.getElementById("backButton").style.display="inline" ;
+
+    var lakeSize = new google.maps.Size(80,80) ;
+    var lakeAnchor = new google.maps.Point(40, 40);
 
     img_lake_full = {
         url: "images/tank_full.png",
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(20, 25),
-        scaledSize: new google.maps.Size(40, 40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     };
     img_lake_nearly_full = {
         url: "images/tank_nearly_full.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40,40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     };
     img_lake_half_full = {
         url: "images/tank_half_full.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40,40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     };
     img_lake_half_empty = {
         url: "images/tank_half_empty.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40,40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     };
     img_lake_nearly_empty = {
         url: "images/tank_nearly_empty.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40,40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     }; //
     img_lake_empty = {
         url: "images/tank_empty.png",
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(40,40)
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
     };
+
+    img_captage = {
+        url: "images/captage.gif",
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(20,50),
+        scaledSize: new google.maps.Size(40, 40)
+    } ;
+
     img_glacier = {
         url: "images/glacier.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
-        scaledSize: new google.maps.Size(160,80)
+        scaledSize: new google.maps.Size(120,120)
     };
 
     img_turbine = {
-        url: "images/turbine.png",
+        url: "images/turbine.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
 
     img_irrigation = {
-        url: "images/irrigation.png",
+        url: "images/irrigation.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
 
     img_distrib = {
-        url: "images/conso.png",
+        url: "images/tap.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
-
 
 }
 
 function initObjects()
 
 {
+    coord_lac = {lat: 46.350560, lng: 7.430909};
+    coord_glacier = {lat: 46.39, lng:7.5} ;
+    coord_turbine = {lat:46.259256, lng: 7.444067} ;
+    coord_capt1 =  {lat: 46.346562, lng: 7.474394} ;
+    coord_capt2 =  {lat: 46.342899, lng: 7.506874} ;
+    coord_capt3 =  {lat: 46.355108, lng: 7.533259} ;
+    coord_irrig1 = {lat: 46.302873, lng: 7.450955};
+    coord_irrig2 = {lat: 46.315647, lng: 7.515431};
+    coord_distrib1 = {lat: 46.315557, lng: 7.543587};
+
     marker_lake_tseuzier = new google.maps.Marker({
         position: coord_lac,
         map: map,
@@ -119,26 +248,14 @@ function initObjects()
     }) ;
 
 
-    coord_capt1 =  {lat: 46.346562, lng: 7.474394} ;
-    coord_capt2 =  {lat: 46.342899, lng: 7.506874} ;
-    coord_capt3 =  {lat: 46.355108, lng: 7.533259} ;
 
-    coord_irrig1 = {lat: 46.302873, lng: 7.450955};
-    coord_irrig2 = {lat: 46.315647, lng: 7.515431};
 
-    coord_distrib1 = {lat: 46.315557, lng: 7.543587};
-
-    img_captage = {
-        url: "images/captage.png",
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,50),
-        scaledSize: new google.maps.Size(40, 40)
-    } ;
 
 
     marker_capt1_tseuzier = new google.maps.Marker({
         position: coord_capt1,
         map: map,
+        optimized: false,
         icon: img_captage,
         title: 'Captage 1'
     });
@@ -146,6 +263,7 @@ function initObjects()
     marker_capt2_tseuzier = new google.maps.Marker({
         position: coord_capt2,
         map: map,
+        optimized: false,
         icon: img_captage,
         title: 'Captage 2'
     });
@@ -153,6 +271,7 @@ function initObjects()
     marker_capt3_tseuzier = new google.maps.Marker({
         position: coord_capt3,
         map: map,
+        optimized: false,
         icon: img_captage,
         title: 'Captage 3'
     });
@@ -179,6 +298,7 @@ function initObjects()
     marker_turbine = new google.maps.Marker({
         position: coord_turbine,
         map: map,
+        optimized: false,
         icon: img_turbine,
         title: 'Centrale électrique'
     }) ;
@@ -196,6 +316,7 @@ function initObjects()
     marker_irrig_1 = new google.maps.Marker({
         position: coord_irrig1,
         map: map,
+        optimized: false,
         icon: img_irrigation,
         title: 'Irrigation'
     }) ;
@@ -203,6 +324,7 @@ function initObjects()
     marker_irrig_2 = new google.maps.Marker({
         position: coord_irrig2,
         map: map,
+        optimized: false,
         icon: img_irrigation,
         title: 'Irrigation'
     }) ;
@@ -210,6 +332,7 @@ function initObjects()
     marker_distrib_1 = new google.maps.Marker({
         position: coord_distrib1,
         map: map,
+        optimized: false,
         icon: img_distrib,
         title: 'Distribuation'
     }) ;
@@ -713,7 +836,7 @@ function  readCSV()
 
                 initObjects() ;
                 document.getElementById("divMois").style.display="inline" ;
-
+                document.getElementById("launchButton").style.display="inline" ;
                 setMonth(5) ;
 
 
@@ -833,7 +956,7 @@ var simulation_interval ;
 function startSimulation()
 {
     simulation_interval =  window.setInterval(function () {
-     nextMonth() ;
+        nextMonth() ;
     },3000);
 
     document.getElementById("stopButton").style.display="inline" ;
