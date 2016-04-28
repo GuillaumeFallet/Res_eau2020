@@ -1,7 +1,7 @@
 .myButton {
-    -moz-box-shadow:inset 0px 1px 0px 0px #7a8eb9;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #7a8eb9;
-    box-shadow:inset 0px 1px 0px 0px #7a8eb9;
+    -moz-box-shadow:inset 0 1px 0 0 #7a8eb9;
+    -webkit-box-shadow:inset 0 1px 0 0 #7a8eb9;
+    box-shadow:inset 0 1px 0 0 #7a8eb9;
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #637aad), color-stop(1, #5972a7));
     background:-moz-linear-gradient(top, #637aad 5%, #5972a7 100%);
     background:-webkit-linear-gradient(top, #637aad 5%, #5972a7 100%);
@@ -37,9 +37,9 @@
 }
 
 .myButton2 {
-    -moz-box-shadow: 3px 4px 0px 0px #1564ad;
-    -webkit-box-shadow: 3px 4px 0px 0px #1564ad;
-    box-shadow: 3px 4px 0px 0px #1564ad;
+    -moz-box-shadow: 3px 4px 0 0 #1564ad;
+    -webkit-box-shadow: 3px 4px 0 0 #1564ad;
+    box-shadow: 3px 4px 0 0 #1564ad;
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
     background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
     background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
@@ -60,7 +60,7 @@
     font-weight:bold;
     padding:12px 44px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #528ecc;
+    text-shadow:0 1px 0 #528ecc;
 }
 .myButton2:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
@@ -78,9 +78,9 @@
 }
 
 .myButton3 {
-    -moz-box-shadow:inset 0px 1px 0px 0px #54a3f7;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #54a3f7;
-    box-shadow:inset 0px 1px 0px 0px #54a3f7;
+    -moz-box-shadow:inset 0 1px 0 0 #54a3f7;
+    -webkit-box-shadow:inset 0 1px 0 0 #54a3f7;
+    box-shadow:inset 0 1px 0 0 #54a3f7;
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #007dc1), color-stop(1, #0061a7));
     background:-moz-linear-gradient(top, #007dc1 5%, #0061a7 100%);
     background:-webkit-linear-gradient(top, #007dc1 5%, #0061a7 100%);
@@ -100,7 +100,7 @@
     font-size:13px;
     padding:6px 24px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #154682;
+    text-shadow:0 1px 0 #154682;
 }
 .myButton3:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1));
