@@ -4,8 +4,12 @@
  * Created by Pydd on 05.04.2016.
  */
 
+// month variable declaration
 var month = 0 ;
+
+// map declaration
 var map ;
+
 // method to initialize the map
 function initMap()
 {
@@ -14,46 +18,61 @@ function initMap()
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         zoom: 10,
-        disableDefaultUI: true,
         rotateControl: true,
         minZoom: 10,
         maxZoom: 10
     });
 
 
-
+    // coord of the regions
     var coordStMaurice = {lat: 46.214382, lng: 7.004878} ;
     var coordBrigViegeNaters = {lat: 46.315558, lng: 7.985488} ;
     var coordVouvryPortValais = {lat: 46.338060, lng: 6.887102} ;
     var coordTseuzier = {lat: 46.351732, lng: 7.429361} ;
 
 
+
+    // declaration of the image for the regions
+    var img_reseau = {
+        url: "images/reseau.png",
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(40, 40),
+        scaledSize: new google.maps.Size(80,80)
+    };
+
+
+    // declarations of the 4 region markers
     var marker_BrigViegeNaters = new google.maps.Marker({
         position: coordBrigViegeNaters,
         map: map,
+        icon: img_reseau,
         animation: google.maps.Animation.DROP,
         title: 'Agglomération Brig-Viège-Naters'
     });
     var marker_StMaurice = new google.maps.Marker({
         position: coordStMaurice,
         map: map,
+        icon: img_reseau,
         animation: google.maps.Animation.DROP,
         title: 'District de St-Maurice'
     });
     var marker_VouvryPortValais = new google.maps.Marker({
         position: coordVouvryPortValais,
         map: map,
+        icon: img_reseau,
         animation: google.maps.Animation.DROP,
         title: 'Région Vouvry-Port-Valais-St-Gingolph'
     });
     var marker_Tseuzier = new google.maps.Marker({
         position: coordTseuzier,
         map: map,
+        icon: img_reseau,
         animation: google.maps.Animation.DROP,
         title: 'Région Crans-Montana-Sierre'
     });
 
 
+    // declarations of the infowindows for the regions
     var info_StMaurice_text = "Réseau d'eau du district de St-Maurice" ;
     var info_StMaurice = new google.maps.InfoWindow({
         content: info_StMaurice_text,
@@ -83,12 +102,14 @@ function initMap()
     info_Tseuzier.open(map,marker_Tseuzier)  ;
 
 
+    // event click region
     google.maps.event.addListener(marker_Tseuzier, 'click', function(){
         clearMarkers();
         initTseuzierMap() ;
     }) ;
 
 
+    // clear the markers when a region is clicked
     function clearMarkers()
     {
         marker_BrigViegeNaters.setMap(null) ;
@@ -97,6 +118,7 @@ function initMap()
         marker_Tseuzier.setMap(null) ;
     }
 
+    // clear the buttons when the "back" button is pressed, stop simulation
     function clearButtons()
     {
         stopSimulation() ;
@@ -112,22 +134,19 @@ function initMap()
 }
 
 
-
+// init the map for the tseuzier region
 function initTseuzierMap()
 {
-
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         zoom: 13,
-        disableDefaultUI: true,
         minZoom: 12,
         maxZoom: 15
 
     });
 
-
-
+    //  make the buttons appear
     document.getElementById("centerTseuzierButton").style.display="inline" ;
     document.getElementById("fileUpload").style.display="inline" ;
     document.getElementById("uploadfileButton").style.display="inline" ;
@@ -136,12 +155,15 @@ function initTseuzierMap()
 
 }
 
+//init the different objets on the map
 function initObjects()
 
 {
-
+    // display the region title and the scenario title
     document.getElementById('title').innerHTML = title_text + ' ' + scenario_text ;
 
+
+    // coord of the various points on the map
     var coord_lac = {lat: 46.350560, lng: 7.430909};
     var coord_glacier = {lat: 46.39, lng:7.5} ;
     var coord_turbine = {lat:46.259256, lng: 7.444067} ;
@@ -152,44 +174,47 @@ function initObjects()
     var coord_irrig2 = {lat: 46.315647, lng: 7.515431};
     var coord_distrib1 = {lat: 46.315557, lng: 7.543587};
 
+    // standard size of the lake images
     var lakeSize = new google.maps.Size(80,80) ;
+    // standard anchor of the lake images
     var lakeAnchor = new google.maps.Point(40, 40);
 
+    // declaration of the lake_full image
     var img_lake_full = {
         url: "images/tank_full.png",
         origin: new google.maps.Point(0, 0),
         anchor: lakeAnchor,
         scaledSize: lakeSize
     };
-
+// declaration of the captage image
     var img_captage = {
         url: "images/captage.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,50),
         scaledSize: new google.maps.Size(40, 40)
     } ;
-
+// declaration of the glacier image
     var img_glacier = {
         url: "images/glacier.png",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,25),
         scaledSize: new google.maps.Size(120,120)
     };
-
+    // declaration of the turbine image
     var img_turbine = {
         url: "images/turbine.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
-
+    // declaration of the irrigation image
     var img_irrigation = {
         url: "images/irrigation.gif",
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(32,32),
         scaledSize: new google.maps.Size(60,60)
     };
-
+    // declaration of the water distribution image
     var img_distrib = {
         url: "images/tap.gif",
         origin: new google.maps.Point(0,0),
@@ -197,96 +222,106 @@ function initObjects()
         scaledSize: new google.maps.Size(60,60)
     };
 
-
+    // declaration of the marker of the lake
     marker_lake_tseuzier = new google.maps.Marker({
         position: coord_lac,
         map: map,
+        animation: google.maps.Animation.DROP,
         icon: img_lake_full,
         title: 'Niveau du lac de Tseuzier'
     });
 
 
-//
+    // declaration of the infowindow for the lake
     var info_lake_text = "Niveau du lac de Tseuzier (PLACEHOLDER)" ;
     info_lake_tseuzier = new google.maps.InfoWindow({
         content: info_lake_text,
         size: new google.maps.Size(100,100)
     }) ;
-
+    // add the event onclick for displaying the infowindow of the lake
     google.maps.event.addListener(marker_lake_tseuzier, 'click', function(){
         info_lake_tseuzier.open(map,marker_lake_tseuzier)
     }) ;
 
-
+    // declaration of the marker of the glacier
     marker_glacier = new google.maps.Marker({
         position: coord_glacier,
         map: map,
+        animation: google.maps.Animation.DROP,
         icon: img_glacier,
         title: 'Le glacier'
     });
 
+    // declaration of the infowindow of the lake
     var info_glacier_text = "Taille du glacier cette année : "+glacier_size ;
     var info_glacier = new google.maps.InfoWindow({
         content: info_glacier_text,
         size: new google.maps.Size(100,100)
     }) ;
-
+    // add the event onclick for displaying the infowindow of the glacier
     google.maps.event.addListener(marker_glacier, 'click', function(){
         info_glacier.open(map,marker_glacier)
     }) ;
 
-
+    // declaration of the marker of the captage 1
     marker_capt1_tseuzier = new google.maps.Marker({
         position: coord_capt1,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_captage,
         title: 'Captage 1'
     });
-
+    // declaration of the marker of the captage 2
     marker_capt2_tseuzier = new google.maps.Marker({
         position: coord_capt2,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_captage,
         title: 'Captage 2'
     });
-
+    // declaration of the marker of the captage 3
     marker_capt3_tseuzier = new google.maps.Marker({
         position: coord_capt3,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_captage,
         title: 'Captage 3'
     });
 
 
-
+    // declaration of the infowindow of the captages
     var info_capt_text = "Captage d'eau" ;
     info_capt = new google.maps.InfoWindow({
         content: info_capt_text,
         size: new google.maps.Size(100,100)
     }) ;
-
+    // add the event onclick for displaying the infowindow of the captage 1
     google.maps.event.addListener(marker_capt1_tseuzier, 'click', function(){
         info_capt.open(map,marker_capt1_tseuzier)
     }) ;
-
+    // add the event onclick for displaying the infowindow of the captage 2
     google.maps.event.addListener(marker_capt2_tseuzier, 'click', function(){
         info_capt.open(map,marker_capt2_tseuzier)
     }) ;
+    // add the event onclick for displaying the infowindow of the captage 3
     google.maps.event.addListener(marker_capt3_tseuzier, 'click', function(){
         info_capt.open(map,marker_capt3_tseuzier)
     }) ;
 
+    // declaration of the marker of the turbine
     marker_turbine = new google.maps.Marker({
         position: coord_turbine,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_turbine,
         title: 'Centrale électrique'
     }) ;
 
+    // declaration of the infowindow of the turbine
     var info_turbine_text = "Centrale électrique" ;
     info_turbine = new google.maps.InfoWindow({
         content: info_turbine_text,
@@ -301,6 +336,7 @@ function initObjects()
     marker_distrib_1 = new google.maps.Marker({
         position: coord_distrib1,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_distrib,
         title: 'Distribuation'
@@ -320,6 +356,7 @@ function initObjects()
     marker_irrig_1 = new google.maps.Marker({
         position: coord_irrig1,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_irrigation,
         title: 'Irrigation'
@@ -328,6 +365,7 @@ function initObjects()
     marker_irrig_2 = new google.maps.Marker({
         position: coord_irrig2,
         map: map,
+        animation: google.maps.Animation.DROP,
         optimized: false,
         icon: img_irrigation,
         title: 'Irrigation'
