@@ -139,7 +139,7 @@ function initTseuzierMap()
 {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 46.32, lng: 7.53},
-        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        mapTypeId: google.maps.MapTypeId.TERRAIN,
         zoom: 13,
         minZoom: 12,
         maxZoom: 15
@@ -152,7 +152,17 @@ function initTseuzierMap()
     document.getElementById("uploadfileButton").style.display="inline" ;
     document.getElementById("backButton").style.display="inline" ;
 
-
+    var csvData;
+    $(document).ready(function(){
+        csvData = $.ajax({
+            type: "GET",
+            url: "data/Scenariotop2100moy.csv",
+            success: function (result) {
+                declareBigArray(result) ;
+                //document.getElementById("test").innerHTML = csvData;
+            }
+        });
+    });
 }
 
 //init the different objets on the map
@@ -763,184 +773,203 @@ function centerTseuzier()
     map.setZoom(13) ;
 
 }
+
+
+
 function  readCSV()
 {
+
+
     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
     if (regex.test($("#fileUpload").val().toLowerCase())) {
         if (typeof (FileReader) != "undefined") {
             var reader = new FileReader();
             reader.onload = function (e) {
-                var rows = e.target.result.split("\n");
-                var array_level_lake = rows[39].split(";") ; // 2
-                var array_afflux_lake = rows[2].split(";") ; // 4
-                var array_afflux_captages = rows[3].split(";") ; // 6
-                var array_water_needs = rows[13].split(";") ; // 8
-                var array_water_needs_irig = rows[23].split(";") ; // 10
-                var array_water_needs_elec = rows[30].split(";") ; // 12
-
-                var array_title_region_scenario  = rows[0].split(";") ;
-
-                title_text = array_title_region_scenario[0] ;
-                scenario_text = array_title_region_scenario[1] ;
-
-                var array_glacier = rows[41].split(";") ;
-                glacier_size = array_glacier[3] ;
-
-                big_array = new Array(13) ;
-
-                colors_array = {natural_arrival_color:null, pipe_arrival_color:null,needs_water_color:null, needs_irrigation_color:null, needs_electricity_color:null} ;
-                colors_array.natural_arrival_color = array_afflux_lake[17] ;
-                colors_array.pipe_arrival_color = array_afflux_captages[17] ;
-                colors_array.needs_water_color = array_water_needs[17] ;
-                colors_array.needs_irrigation_color = array_water_needs_irig[17] ;
-                colors_array.needs_electricity_color = array_water_needs_elec[17] ;
-
-                for (var i = 1 ; i <= 12 ; i ++)
-                {
-                    big_array[i] =  {index:null,month_name:null,lake_level:null,lake_level_img:null,
-                        natural_arrival:null,natural_arrival_speed:null,
-                        pipe_arrival:null, pipe_arrival_speed:null,
-                        needs_water:null,needs_water_speed:null,
-                        needs_irrigation:null,needs_irrigation_speed:null,
-                        needs_electricity:null,needs_electricity_speed:null} ;
-                    big_array[i].index = i ;
-                    big_array[i].lake_level = parseFloat(array_level_lake[i+2].replace(/,/g, '.')) ;
-                }
-
-                var min = big_array[1].lake_level ;
-                var max = big_array[1].lake_level ;
-
-                for (var j = 1 ; j <=12 ; j ++)
-                {
-                    if(big_array[j].lake_level < min)
-                    {
-                        min = big_array[j].lake_level  ;
-                    }
-                    else if (big_array[j].lake_level > max)
-                    {
-                        max = big_array[j].lake_level  ;
-                    }
-                }
-                var diff = max - min ;
-                var tier = diff / 6 ;
-
-                var array_tiers_level_lake = [6] ;
-                array_tiers_level_lake[0] = eval(min)+eval(1*tier) ;
-                array_tiers_level_lake[1] = eval(min)+eval(2*tier) ;
-                array_tiers_level_lake[2] = eval(min)+eval(3*tier) ;
-                array_tiers_level_lake[3] = eval(min)+eval(4*tier) ;
-                array_tiers_level_lake[4] = eval(min)+eval(5*tier) ;
-                array_tiers_level_lake[5] = eval(min)+eval(6*tier) ;
-
-                var lakeSize = new google.maps.Size(80,80) ;
-                var lakeAnchor = new google.maps.Point(40, 40);
-
-                var img_lake_nearly_full = {
-                    url: "images/tank_nearly_full.png",
-                    origin: new google.maps.Point(0,0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                };
-                var img_lake_half_full = {
-                    url: "images/tank_half_full.png",
-                    origin: new google.maps.Point(0,0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                };
-                var img_lake_half_empty = {
-                    url: "images/tank_half_empty.png",
-                    origin: new google.maps.Point(0,0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                };
-                var img_lake_nearly_empty = {
-                    url: "images/tank_nearly_empty.png",
-                    origin: new google.maps.Point(0,0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                }; //
-                var img_lake_empty = {
-                    url: "images/tank_empty.png",
-                    origin: new google.maps.Point(0,0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                };
-
-                var img_lake_full = {
-                    url: "images/tank_full.png",
-                    origin: new google.maps.Point(0, 0),
-                    anchor: lakeAnchor,
-                    scaledSize: lakeSize
-                };
-
-                for (var i = 1 ; i <= 12 ; i++){
-
-                    if(big_array[i].lake_level<=array_tiers_level_lake[0]) {
-                        big_array[i].lake_level_img = img_lake_empty ;
-                    }
-                    else if(big_array[i].lake_level<array_tiers_level_lake[1]) {
-                        big_array[i].lake_level_img = img_lake_nearly_empty ;
-                    }
-                    else if(big_array[i].lake_level<array_tiers_level_lake[2]) {
-                        big_array[i].lake_level_img = img_lake_half_empty ;
-                    }
-                    else if(big_array[i].lake_level<array_tiers_level_lake[3]) {
-                        big_array[i].lake_level_img = img_lake_half_full ;
-                    }
-                    else if(big_array[i].lake_level<array_tiers_level_lake[4]) {
-                        big_array[i].lake_level_img = img_lake_nearly_full ;
-                    }
-                    else if(big_array[i].lake_level<=array_tiers_level_lake[5]) {
-                        big_array[i].lake_level_img = img_lake_full ;
-                    }
-
-                    big_array[i].natural_arrival= parseFloat(array_afflux_lake[i+2].replace(/,/g, '.')) ;
-                    big_array[i].pipe_arrival = parseFloat(array_afflux_captages[i+2].replace(/,/g, '.')) ;
-                    big_array[i].needs_water = parseFloat(array_water_needs[i+2].replace(/,/g, '.')) ;
-                    big_array[i].needs_irrigation= parseFloat(array_water_needs_irig[i+2].replace(/,/g, '.')) ;
-                    big_array[i].needs_electricity = parseFloat(array_water_needs_elec[i+2].replace(/,/g, '.')) ;
-
-
-
-                }
-
-                calculateSpeeds("natural_arrival") ;
-                calculateSpeeds("pipe_arrival") ;
-                calculateSpeeds("needs_water") ;
-                calculateSpeeds("needs_irrigation") ;
-                calculateSpeeds("needs_electricity") ;
-
-
-
-
-                big_array[1].month_name = "Janvier" ;
-                big_array[2].month_name = "Février" ;
-                big_array[3].month_name = "Mars" ;
-                big_array[4].month_name = "Avril" ;
-                big_array[5].month_name = "Mai" ;
-                big_array[6].month_name = "Juin" ;
-                big_array[7].month_name = "Juillet" ;
-                big_array[8].month_name = "Août" ;
-                big_array[9].month_name = "Septembre" ;
-                big_array[10].month_name = "Octobre" ;
-                big_array[11].month_name = "Novembre" ;
-                big_array[12].month_name = "Décembre" ;
-
-
-                initObjects() ;
-                document.getElementById("divMois").style.display="inline" ;
-                document.getElementById("launchButton").style.display="inline" ;
-                setMonth(5) ;
-
+                declareBigArray(e.target.result) ;
             };
             reader.readAsText($("#fileUpload")[0].files[0]);
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 46.32, lng: 7.53},
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+                zoom: 13,
+                minZoom: 12,
+                maxZoom: 15
+
+            });
+
         } else {
             alert("This browser does not support HTML5.");
         }
     } else {
         alert("Please upload a valid CSV file.");
     }
+}
 
+function declareBigArray(result)
+{
+    //  var rows = e.target.result.split("\n");
+    var rows = result.split("\n");
+    var array_level_lake = rows[39].split(";") ; // 2
+    var array_afflux_lake = rows[2].split(";") ; // 4
+    var array_afflux_captages = rows[3].split(";") ; // 6
+    var array_water_needs = rows[13].split(";") ; // 8
+    var array_water_needs_irig = rows[23].split(";") ; // 10
+    var array_water_needs_elec = rows[30].split(";") ; // 12
+
+    var array_title_region_scenario  = rows[0].split(";") ;
+
+    title_text = array_title_region_scenario[0] ;
+    scenario_text = array_title_region_scenario[1] ;
+
+    var array_glacier = rows[41].split(";") ;
+    glacier_size = array_glacier[3] ;
+
+    big_array = new Array(13) ;
+
+    colors_array = {natural_arrival_color:null, pipe_arrival_color:null,needs_water_color:null, needs_irrigation_color:null, needs_electricity_color:null} ;
+    colors_array.natural_arrival_color = array_afflux_lake[17] ;
+    colors_array.pipe_arrival_color = array_afflux_captages[17] ;
+    colors_array.needs_water_color = array_water_needs[17] ;
+    colors_array.needs_irrigation_color = array_water_needs_irig[17] ;
+    colors_array.needs_electricity_color = array_water_needs_elec[17] ;
+
+    for (var i = 1 ; i <= 12 ; i ++)
+    {
+        big_array[i] =  {index:null,month_name:null,lake_level:null,lake_level_img:null,
+            natural_arrival:null,natural_arrival_speed:null,
+            pipe_arrival:null, pipe_arrival_speed:null,
+            needs_water:null,needs_water_speed:null,
+            needs_irrigation:null,needs_irrigation_speed:null,
+            needs_electricity:null,needs_electricity_speed:null} ;
+        big_array[i].index = i ;
+        big_array[i].lake_level = parseFloat(array_level_lake[i+2].replace(/,/g, '.')) ;
+    }
+
+    var min = big_array[1].lake_level ;
+    var max = big_array[1].lake_level ;
+
+    for (var j = 1 ; j <=12 ; j ++)
+    {
+        if(big_array[j].lake_level < min)
+        {
+            min = big_array[j].lake_level  ;
+        }
+        else if (big_array[j].lake_level > max)
+        {
+            max = big_array[j].lake_level  ;
+        }
+    }
+    var diff = max - min ;
+    var tier = diff / 6 ;
+
+    var array_tiers_level_lake = [6] ;
+    array_tiers_level_lake[0] = eval(min)+eval(1*tier) ;
+    array_tiers_level_lake[1] = eval(min)+eval(2*tier) ;
+    array_tiers_level_lake[2] = eval(min)+eval(3*tier) ;
+    array_tiers_level_lake[3] = eval(min)+eval(4*tier) ;
+    array_tiers_level_lake[4] = eval(min)+eval(5*tier) ;
+    array_tiers_level_lake[5] = eval(min)+eval(6*tier) ;
+
+    var lakeSize = new google.maps.Size(80,80) ;
+    var lakeAnchor = new google.maps.Point(40, 40);
+
+    var img_lake_nearly_full = {
+        url: "images/tank_nearly_full.png",
+        origin: new google.maps.Point(0,0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    };
+    var img_lake_half_full = {
+        url: "images/tank_half_full.png",
+        origin: new google.maps.Point(0,0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    };
+    var img_lake_half_empty = {
+        url: "images/tank_half_empty.png",
+        origin: new google.maps.Point(0,0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    };
+    var img_lake_nearly_empty = {
+        url: "images/tank_nearly_empty.png",
+        origin: new google.maps.Point(0,0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    }; //
+    var img_lake_empty = {
+        url: "images/tank_empty.png",
+        origin: new google.maps.Point(0,0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    };
+
+    var img_lake_full = {
+        url: "images/tank_full.png",
+        origin: new google.maps.Point(0, 0),
+        anchor: lakeAnchor,
+        scaledSize: lakeSize
+    };
+
+    for (var i = 1 ; i <= 12 ; i++){
+
+        if(big_array[i].lake_level<=array_tiers_level_lake[0]) {
+            big_array[i].lake_level_img = img_lake_empty ;
+        }
+        else if(big_array[i].lake_level<array_tiers_level_lake[1]) {
+            big_array[i].lake_level_img = img_lake_nearly_empty ;
+        }
+        else if(big_array[i].lake_level<array_tiers_level_lake[2]) {
+            big_array[i].lake_level_img = img_lake_half_empty ;
+        }
+        else if(big_array[i].lake_level<array_tiers_level_lake[3]) {
+            big_array[i].lake_level_img = img_lake_half_full ;
+        }
+        else if(big_array[i].lake_level<array_tiers_level_lake[4]) {
+            big_array[i].lake_level_img = img_lake_nearly_full ;
+        }
+        else if(big_array[i].lake_level<=array_tiers_level_lake[5]) {
+            big_array[i].lake_level_img = img_lake_full ;
+        }
+
+        big_array[i].natural_arrival= parseFloat(array_afflux_lake[i+2].replace(/,/g, '.')) ;
+        big_array[i].pipe_arrival = parseFloat(array_afflux_captages[i+2].replace(/,/g, '.')) ;
+        big_array[i].needs_water = parseFloat(array_water_needs[i+2].replace(/,/g, '.')) ;
+        big_array[i].needs_irrigation= parseFloat(array_water_needs_irig[i+2].replace(/,/g, '.')) ;
+        big_array[i].needs_electricity = parseFloat(array_water_needs_elec[i+2].replace(/,/g, '.')) ;
+
+
+
+    }
+
+    calculateSpeeds("natural_arrival") ;
+    calculateSpeeds("pipe_arrival") ;
+    calculateSpeeds("needs_water") ;
+    calculateSpeeds("needs_irrigation") ;
+    calculateSpeeds("needs_electricity") ;
+
+
+
+
+    big_array[1].month_name = "Janvier" ;
+    big_array[2].month_name = "Février" ;
+    big_array[3].month_name = "Mars" ;
+    big_array[4].month_name = "Avril" ;
+    big_array[5].month_name = "Mai" ;
+    big_array[6].month_name = "Juin" ;
+    big_array[7].month_name = "Juillet" ;
+    big_array[8].month_name = "Août" ;
+    big_array[9].month_name = "Septembre" ;
+    big_array[10].month_name = "Octobre" ;
+    big_array[11].month_name = "Novembre" ;
+    big_array[12].month_name = "Décembre" ;
+
+
+    initObjects() ;
+    document.getElementById("divMois").style.display="inline" ;
+    document.getElementById("launchButton").style.display="inline" ;
+    setMonth(5) ;
 }
 
 var main_pipe_interval ;
