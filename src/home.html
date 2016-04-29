@@ -13,7 +13,7 @@
     <script type="text/javascript" src="map.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <header>
-    <label id="title"></label>
+    <label id="title" class="myLabel"></label>
 
 </header>
 <body>
@@ -40,10 +40,11 @@
         <br>
         <a onclick="previousMonth()"  class="myButton">Mois précédent</a>
         <a onclick="nextMonth()"  class="myButton">Mois suivant</a>
+        <a onclick="startSimulation()" id="launchButton" style="display:none;" class="myButton">Démarrer la simulation</a>
+        <a onclick="stopSimulation()" id="stopButton" style="display:none;" class="myButton">Arrêter la simulation</a>
         <br>
     </div>
-    <a onclick="startSimulation()" id="launchButton" style="display:none;" class="myButton">Démarrer la simulation</a>
-    <a onclick="stopSimulation()" id="stopButton" style="display:none;" class="myButton">Arrêter la simulation</a>
+
 </div>
 </body>
 <script async defer

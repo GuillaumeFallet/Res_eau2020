@@ -146,6 +146,8 @@ function initTseuzierMap()
 
     });
 
+    title_text = 'Région Crans-Montana-Sierre (Réservoir Lac Tseuzier)';
+    document.getElementById('title').innerHTML = title_text ;
     //  make the buttons appear
     document.getElementById("centerTseuzierButton").style.display="inline" ;
     document.getElementById("fileUpload").style.display="inline" ;
@@ -819,8 +821,8 @@ function declareBigArray(result)
 
     var array_title_region_scenario  = rows[0].split(";") ;
 
-    title_text = array_title_region_scenario[0] ;
-    scenario_text = array_title_region_scenario[1] ;
+
+                scenario_text = array_title_region_scenario[1] ;
 
     var array_glacier = rows[41].split(";") ;
     glacier_size = array_glacier[3] ;
